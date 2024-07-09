@@ -1,20 +1,20 @@
 import streamlit as st
 from importlib.metadata import version
-import writing
-
+import util
+import os
+import importlib.util
+import sys
 
 compartment_counts = {"one": 1, "two": 2, "three": 3}
 
 
-col1, col2, col3 = st.columns(3)
-with col2:
-    st.header("PK Crafter App")
+# col1, col2, col3 = st.columns(3)
+# with col2:
+#     st.header("Model Builder")
+st.title("Model Builder")
 # with col3:
 #     st.image("https://avatars.githubusercontent.com/u/163594810?s=200&v=4", width=100)
-st.logo(
-    "https://avatars.githubusercontent.com/u/163594810?s=200&v=4",
-    link="https://github.com/Borealis-BioModeling",
-)
+
 st.text(
     "Build and export compartmental PK (pharmacokinetics) models in the PySB format."
 )
@@ -22,13 +22,15 @@ st.text(
 st.write(" ")
 st.markdown("------")
 
-st.markdown("### 1. Name The Model")
-model_name = st.text_input("Model Name:", "pkmodel")
+# st.markdown("### 1. Name The Model")
+# model_name = st.text_input("Model Name:", "pkmodel")
+model_name = "model"
+model_dir = ".model/"
 
-st.write(" ")
-st.markdown("------")
+# st.write(" ")
+# st.markdown("------")
 
-st.markdown("### 2. Define the Compartments")
+st.markdown("### 1. Define the Compartments")
 
 compartments = []
 n_comp = 1
@@ -53,19 +55,21 @@ for i in range(n_comp):
         compartments[i]["size"] = cols[1].number_input(
             "Size:", value=1.0, min_value=0.0, key="COMP_SIZE_{}".format(i)
         )
-
+compartment_list = [comp["name"] for comp in compartments]
 st.write(" ")
 st.markdown("------")
 
-st.markdown("### 3. Define the Drug & Dose")
+st.markdown("### 2. Define the Drug & Dose")
 
 
-dosing = st.radio("Dosing:", list(writing.dosing_strategies.keys()), horizontal=True)
+dosing = st.radio("Dosing:", list(util.dosing_strategies.keys()), horizontal=True)
 
 left, right = st.columns(2)
 with left:
     drug_name = st.text_input("Drug Name: ", "Imagiprofen")
-
+    dose_compartment = st.selectbox(
+        "Dose Compartment:", compartment_list, placeholder="Choose a compartment"
+    )
 with right:
     if dosing == "I.V. Infusion":
         drug_dose = st.number_input(
@@ -88,7 +92,7 @@ with right:
 st.write(" ")
 st.markdown("------")
 
-st.markdown("### 4. Drug Distribution")
+st.markdown("### 3. Drug Distribution")
 
 
 distributes = []
@@ -124,7 +128,7 @@ else:
 st.write(" ")
 st.markdown("------")
 
-st.markdown("### 5. Drug Elimination")
+st.markdown("### 4. Drug Elimination")
 
 eliminates = []
 
@@ -157,26 +161,43 @@ for i in range(n_comp):
 # st.write(distributes)
 # st.write(eliminates)
 # st.write(compartments)
-st.markdown("### 6. Download Your PK Model")
+st.markdown("### 5. Download Your PK Model")
 crafted = False
 model_text = ""
-model_file_name = model_name + ".py"
+model_file_name = model_dir + model_name + ".py"
 
 
 def write_model():
     with open(model_file_name, "w") as f:
-        writing.standard_imports(f)
-        writing.new_model(f)
-        writing.compartments(f, compartments)
-        writing.dose(f, drug_name, drug_dose, dosing, dosing_kwargs)
+        util.built_with(f)
+        util.standard_imports(f)
+        util.new_model(f)
+        util.compartments(f, compartments)
+        util.dose(f, drug_name, drug_dose, dose_compartment, dosing, dosing_kwargs)
         if len(distributes) > 0:
-            writing.distribution(f, drug_name, distributes)
+            util.distribution(f, drug_name, distributes)
         if len(eliminates) > 0:
-            writing.elimination(f, drug_name, eliminates)
+            util.elimination(f, drug_name, eliminates)
     crafted = True
     with open(model_file_name, "r") as f:
         model_text = f.read()
     return crafted, model_text
+
+
+def import_model():
+    
+    try:
+        file_path = ".model/model.py"
+        module_name = "model"
+        spec = importlib.util.spec_from_file_location(module_name, file_path)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[module_name] = module
+        spec.loader.exec_module(module)
+        #return sys.modules[module_name]['model']
+        return module.model
+    except Exception as e:
+        st.exception(e)
+    return
 
 
 # left, right = st.columns(2)
@@ -188,10 +209,20 @@ def write_model():
 #         model_text,
 #         model_file_name,
 #     )
+
 crafted, model_text = write_model()
+if "model_str" in st.session_state:
+    if st.session_state.model_str != model_text:
+        util.save_model_str(model_text)
+        util.reload_saved_model()
+        model = st.session_state.model
+else:
+    model = import_model()
+    util.save_model(model)
+st.write(model)
 st.code(model_text, line_numbers=True)
 st.download_button(
-    'Download "{}"'.format(model_file_name),
+    'Download "model.py"',
     model_text,
     model_file_name,
     on_click=st.balloons,
@@ -199,7 +230,7 @@ st.download_button(
 
 st.write(" ")
 st.write(" ")
-powered_by = "Powered by PySB {} and pysb-pkpd {}".format(
+powered_by = "Model powered by PySB {} and pysb-pkpd {}".format(
     version("pysb"), version("pysb.pkpd")
 )
 st.caption(powered_by)
