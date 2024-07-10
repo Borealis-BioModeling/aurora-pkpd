@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 from io import StringIO
 import tempfile
+import util
 
 st.title("Home")
 st.write(
@@ -10,7 +11,7 @@ st.write(
 )
 
 if "tmp_dir" not in st.session_state:
-    tmp_dir = tempfile.TemporaryDirectory(delete=False)
+    tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-", delete=False)
     st.session_state.tmp_dir = tmp_dir
     model_file_name = os.path.join(st.session_state.tmp_dir.name, "model.py")
     st.session_state.model_file = model_file_name
@@ -29,3 +30,17 @@ else:
         string_data = stringio.read()
         st.write("Uploaded model:")
         st.code(string_data, line_numbers=True)
+        util.save_model_str(string_data)
+        with open(st.session_state.model_file, "w") as f:
+            f.write(string_data)
+        model = util.import_model()
+        util.save_model(model)
+
+from importlib.metadata import version
+st.write(" ")
+st.write(" ")
+powered_by = "App powered by streamlit {}".format(
+    version("streamlit"),
+)
+st.caption(powered_by)
+        

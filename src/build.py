@@ -166,17 +166,19 @@ st.write(" ")
 st.markdown("------")
 
 st.markdown("### 5. Define a Drug PD Model")
-
+pd_model = None
+pd_kwargs = {}
 if st.toggle("Include a PD model?"):
     pd_model = st.radio("PD model:", list(util.PD_MODELS.keys()), horizontal=True)
-
+    st.latex(util.PD_MODEL_EQS[pd_model])
     left, right = st.columns(2)
     with left:
         #drug_name = st.text_input("Drug Name: ", "Imagiprofen")
         effect_compartment = st.selectbox(
             "Effect Compartment:", compartment_list, placeholder="Choose a compartment"
         )
-
+    with right:
+        pd_kwargs = util.PD_MODEL_KWARGS[pd_model](drug_name, effect_compartment)
 
 st.write(" ")
 st.markdown("------")
@@ -188,7 +190,7 @@ st.markdown("### 5. Save and Download")
 st.markdown("**Save** your new model if you want to continue and use the Explore or Fit/Train tools.")
 st.markdown("**Download** your new model for later use.")
 if "tmp_dir" not in st.session_state:
-    tmp_dir = tempfile.TemporaryDirectory(delete=False)
+    tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-", delete=False)
     st.session_state.tmp_dir = tmp_dir
     model_file_name = os.path.join(st.session_state.tmp_dir.name, "model.py")
     st.session_state.model_file = model_file_name
@@ -209,26 +211,13 @@ def write_model():
             util.distribution(f, drug_name, distributes)
         if len(eliminates) > 0:
             util.elimination(f, drug_name, eliminates)
+        if pd_model is not None:
+            util.pd_model(f, drug_name, pd_model, effect_compartment, pd_kwargs)
     crafted = True
     with  open(st.session_state.model_file, "r") as f: 
         model_text = f.read()
     return crafted, model_text
 
-
-def import_model():
-
-    try:
-        file_path = st.session_state.model_file
-        module_name = "model"
-        spec = importlib.util.spec_from_file_location(module_name, file_path)
-        module = importlib.util.module_from_spec(spec)
-        sys.modules[module_name] = module
-        spec.loader.exec_module(module)
-        # return sys.modules[module_name]['model']
-        return module.model
-    except Exception as e:
-        st.exception(e)
-    return
 
 
 crafted, model_text = write_model()
@@ -238,7 +227,7 @@ crafted, model_text = write_model()
 #         util.reload_saved_model()
 #         model = st.session_state.model
 # else:
-model = import_model()
+model = util.import_model()
 
 
 st.write(model)
@@ -254,15 +243,17 @@ if left.button("Save"):
 
     if "model" in st.session_state:
         st.warning('A model has been uploaded or built already. If you save the new model the other one will be overwritten.', icon="⚠️")
-        model = st.session_state.model
-        model_text = st.session_state.model_str
+        model_old = st.session_state.model
+        model_text_old = st.session_state.model_str
         st.write("Previously saved model:")
-        st.write(model)
-        st.code(model_text, line_numbers=True)
+        st.write(model_old)
+        st.code(model_text_old, line_numbers=True)
         if st.button("Save and Overwrite"):
                 util.save_model(model)
                 util.save_model_str(model_text)
-
+    else: 
+        util.save_model(model)
+        util.save_model_str(model_text)
 st.write(" ")
 st.write(" ")
 powered_by = "Model powered by PySB {} and pysb-pkpd {}".format(

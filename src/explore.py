@@ -7,3 +7,10 @@ import streamlit as st
 st.title("Model Explorer")
 
 st.info('Not yet implemented', icon="ℹ️")
+
+if "model" in st.session_state:
+    model = st.session_state.model
+else:
+    st.warning("Need to build or upload a model first!")
+    st.stop()
+
