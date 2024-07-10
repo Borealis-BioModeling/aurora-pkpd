@@ -17,7 +17,7 @@ st.title("Model Builder")
 #     st.image("https://avatars.githubusercontent.com/u/163594810?s=200&v=4", width=100)
 
 st.text(
-    "Build and export compartmental PK (pharmacokinetics) models in the PySB format."
+    "Build a compartmental PK/PB model using the PySB format."
 )
 
 st.write(" ")
@@ -162,13 +162,31 @@ for i in range(n_comp):
     if n_comp > 1:
         st.markdown("------")
 
-# st.write(" ")
-# st.markdown("------")
+st.write(" ")
+st.markdown("------")
+
+st.markdown("### 5. Define a Drug PD Model")
+
+if st.toggle("Include a PD model?"):
+    pd_model = st.radio("PD model:", list(util.PD_MODELS.keys()), horizontal=True)
+
+    left, right = st.columns(2)
+    with left:
+        #drug_name = st.text_input("Drug Name: ", "Imagiprofen")
+        effect_compartment = st.selectbox(
+            "Effect Compartment:", compartment_list, placeholder="Choose a compartment"
+        )
+
+
+st.write(" ")
+st.markdown("------")
 
 # st.write(distributes)
 # st.write(eliminates)
 # st.write(compartments)
-st.markdown("### 5. Download Your PK Model")
+st.markdown("### 5. Save and Download")
+st.markdown("**Save** your new model if you want to continue and use the Explore or Fit/Train tools.")
+st.markdown("**Download** your new model for later use.")
 if "tmp_dir" not in st.session_state:
     tmp_dir = tempfile.TemporaryDirectory(delete=False)
     st.session_state.tmp_dir = tmp_dir

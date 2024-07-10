@@ -7,6 +7,37 @@ dosing_strategies = {
 }
 
 
+PD_MODELS = {
+    "Emax": "pkpd.emax",
+    "Sigmoidal Emax": "pkpd.sigmoidal_emax",
+    "Linear Effect": "pkpd.linear_effect",
+    "Log-linear Effect": "pkpd.loglinear_effect",
+    "Fixed-effect": "pkpd.fixed_effect",
+}
+
+PD_MODEL_EQS = {
+    "Emax": r"E = E_{\textrm{max}} \frac{\left[\textrm{Drug}\right]}{\left[\textrm{Drug}\right] + EC_{\textrm{50}}}",
+    "Sigmoidal Emax": "pkpd.sigmoidal_emax",
+    "Linear Effect": "pkpd.linear_effect",
+    "Log-linear Effect": "pkpd.loglinear_effect",
+    "Fixed-effect": "pkpd.fixed_effect",
+}
+
+
+def pd_emax_kwargs(drug_name, compartment):
+    pd_kwargs = dict()
+    pd_kwargs["emax"] = st.number_input(
+        "Emax:",
+        0.0,
+        help="Maximum effect value.",
+    )
+    pd_kwargs["ec50"] = st.number_input(
+        "EC50:",
+        value=0.0,
+        help="Drug concnetration at which the effect is 50% of Emax.",
+    )
+
+
 def built_with(file):
     file.write("'''\n")
     file.write("Built with Aurora PK/PD.\n")
@@ -100,11 +131,14 @@ def elimination(file, drug_name, eliminations):
         file.write("pkpd.eliminate({}, {}, {}) \n".format(drug_name, *elim))
     file.write("\n")
 
+
 def save_model_str(model_str):
     st.session_state.model_str = model_str
 
+
 def save_model(model):
     st.session_state.model = model
+
 
 def reload_saved_model():
     st.session_state.model.reload()
