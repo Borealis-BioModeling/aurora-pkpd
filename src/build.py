@@ -16,9 +16,7 @@ st.title("Model Builder")
 # with col3:
 #     st.image("https://avatars.githubusercontent.com/u/163594810?s=200&v=4", width=100)
 
-st.text(
-    "Build a compartmental PK/PB model using the PySB format."
-)
+st.text("Build a compartmental PK/PB model using the PySB format.")
 
 st.write(" ")
 st.markdown("------")
@@ -69,7 +67,17 @@ st.markdown("------")
 st.markdown("### 2. Define the Drug & Dose")
 
 
-dosing = st.radio("Dosing:", list(util.dosing_strategies.keys()), horizontal=True)
+dosing = st.radio(
+    "Dosing:",
+    list(util.dosing_strategies.keys()),
+    horizontal=True,
+    help="Define a model for how the dose of drug is administered.",
+    captions=[
+        "Instantaneous bolus dose at time zero.",
+        "Zero-order addition of the drug over time.",
+        "Linear (first-order) absorption of the drug.",
+    ],
+)
 
 left, right = st.columns(2)
 with left:
@@ -93,7 +101,12 @@ with right:
             help="1st-order rate constant for the absoption.",
         )
         dosing_kwargs["f"] = st.number_input(
-            "Bioavailability:", value=1.0, min_value=0.0, max_value=1.0, step=0.01
+            "Bioavailability:",
+            value=1.0,
+            min_value=0.0,
+            max_value=1.0,
+            step=0.01,
+            help="Fraction of the drug dose that gets absorbed.",
         )
 
 st.write(" ")
@@ -112,16 +125,16 @@ if n_comp > 1:
         for j in range(i + 1, n_comp):
             comp_j = compartments[j]["name"]
             left.write(" ")
-            is_on = left.toggle("{} <--> {}".format(comp_i, comp_j))
+            is_on = left.toggle("{} and {}".format(comp_i, comp_j))
             if is_on:
                 k_dist = center.number_input(
-                    "Distribution Rate constant {} --> {}:".format(comp_i, comp_j),
+                    "Distribution Rate constant {} ➡️ {}:".format(comp_i, comp_j),
                     0.0,
                     help="1st-order rate constant for the distribution.",
                 )
                 # center.latex(r"k_f")
                 k_redist = right.number_input(
-                    "Re-distribution Rate constant {} <-- {}:".format(comp_i, comp_j),
+                    "Re-distribution Rate constant {} ⬅️ {}:".format(comp_i, comp_j),
                     0.0,
                     help="1st-order rate constant for the re-distribution.",
                 )
@@ -173,7 +186,7 @@ if st.toggle("Include a PD model?"):
     st.latex(util.PD_MODEL_EQS[pd_model])
     left, right = st.columns(2)
     with left:
-        #drug_name = st.text_input("Drug Name: ", "Imagiprofen")
+        # drug_name = st.text_input("Drug Name: ", "Imagiprofen")
         effect_compartment = st.selectbox(
             "Effect Compartment:", compartment_list, placeholder="Choose a compartment"
         )
@@ -187,7 +200,9 @@ st.markdown("------")
 # st.write(eliminates)
 # st.write(compartments)
 st.markdown("### 5. Save and Download")
-st.markdown("**Save** your new model if you want to continue and use the Explore or Fit/Train tools.")
+st.markdown(
+    "**Save** your new model if you want to continue and use the Explore or Fit/Train tools."
+)
 st.markdown("**Download** your new model for later use.")
 if "tmp_dir" not in st.session_state:
     tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-", delete=False)
@@ -199,9 +214,8 @@ crafted = False
 model_text = ""
 
 
-
 def write_model():
-    with open(st.session_state.model_file, "w") as f: 
+    with open(st.session_state.model_file, "w") as f:
         util.built_with(f)
         util.standard_imports(f)
         util.new_model(f)
@@ -214,10 +228,9 @@ def write_model():
         if pd_model is not None:
             util.pd_model(f, drug_name, pd_model, effect_compartment, pd_kwargs)
     crafted = True
-    with  open(st.session_state.model_file, "r") as f: 
+    with open(st.session_state.model_file, "r") as f:
         model_text = f.read()
     return crafted, model_text
-
 
 
 crafted, model_text = write_model()
@@ -242,16 +255,19 @@ right.download_button(
 if left.button("Save"):
 
     if "model" in st.session_state:
-        st.warning('A model has been uploaded or built already. If you save the new model the other one will be overwritten.', icon="⚠️")
+        st.warning(
+            "A model has been uploaded or built already. If you save the new model the other one will be overwritten.",
+            icon="⚠️",
+        )
         model_old = st.session_state.model
         model_text_old = st.session_state.model_str
         st.write("Previously saved model:")
         st.write(model_old)
         st.code(model_text_old, line_numbers=True)
         if st.button("Save and Overwrite"):
-                util.save_model(model)
-                util.save_model_str(model_text)
-    else: 
+            util.save_model(model)
+            util.save_model_str(model_text)
+    else:
         util.save_model(model)
         util.save_model_str(model_text)
 st.write(" ")
