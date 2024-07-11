@@ -24,3 +24,17 @@ def under_construction():
         "Under construction: This section is currently under development. Please check back later.",
         icon="👷‍♂️",
     )
+
+def compartmental_options():
+    
+    st.markdown("### Compartmental PK/PD modeling")
+    st.markdown("#### First - Upload or Build a Model:")
+    left, right = st.columns(2)
+    left.page_link("upload.py", label="Upload Model", icon=":material/upload:")
+    right.page_link("build.py", label="Build Model", icon=":material/build:")
+    viz_simulate_fit()
+
+def nca_options():
+    st.markdown("### Non-compartmental PK analysis (NCA)")
+    st.markdown("#### Run NCA:")
+    st.page_link("nca.py", label="NCA", icon=":material/query_stats:")
