@@ -1,7 +1,7 @@
 import streamlit as st
+import widgets
 
-# col1, col2, col3 = st.columns(3)
-# with col2:
-#     st.header("Model Trainer")
-st.title("Model Fitter/Trainer")
-st.info('Not yet implemented', icon="ℹ️")
+st.title("Model Fitting/Training")
+
+widgets.divider_blank()
+widgets.under_construction()
