@@ -5,6 +5,7 @@ import os
 import importlib.util
 import sys
 import tempfile
+import widgets
 
 compartment_counts = {"one": 1, "two": 2, "three": 3}
 
@@ -267,9 +268,13 @@ if left.button("Save"):
         if st.button("Save and Overwrite"):
             util.save_model(model)
             util.save_model_str(model_text)
+            st.info("Model saved!", icon="💾")    
     else:
         util.save_model(model)
         util.save_model_str(model_text)
+        st.info("Model saved!", icon="💾")    
+if "model" in st.session_state:
+    widgets.viz_simulate_fit()       
 st.write(" ")
 st.write(" ")
 powered_by = "Model powered by PySB {} and pysb-pkpd {}".format(

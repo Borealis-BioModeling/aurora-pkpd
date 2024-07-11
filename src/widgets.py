@@ -1,8 +1,14 @@
 import streamlit as st
 
 
+def simulate_fit():
+    st.markdown("#### Next you can:")
+    left, right = st.columns(2)
+    left.page_link("simulate.py", label="Simulate Model", icon=":material/laps:")
+    right.page_link("fit.py", label="Fit/Train Model", icon=":material/model_training:")
+
 def viz_simulate_fit():
-    st.markdown("### Next you can:")
+    st.markdown("#### Next you can:")
     left, center, right = st.columns(3)
     left.page_link("visualize.py", label="Visualize Model", icon=":material/hub:")
     center.page_link("simulate.py", label="Simulate Model", icon=":material/laps:")

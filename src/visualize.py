@@ -1,4 +1,5 @@
 import streamlit as st
+import widgets
 
 # col1, col2, col3 = st.columns(3)
 # with col2:
@@ -59,6 +60,10 @@ graph_source = graph_html.read()
 #with right:
 st.markdown("### 2. Species View")
 components.html(graph_source, height=500, width=500)
+
+widgets.blank_divider_blank()
+widgets.simulate_fit()
+widgets.divider_blank()
 
 from importlib.metadata import version
 st.write(" ")
