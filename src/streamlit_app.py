@@ -19,9 +19,9 @@ home_page = st.Page("home.py", title="Home", icon=":material/house:")
 upload_page = st.Page("upload.py", title="Upload", icon=":material/upload:")
 build_page = st.Page("build.py", title="Build", icon=":material/build:")
 viz_page = st.Page("visualize.py", title="Visualize", icon=":material/hub:")
-simulate_page = st.Page("simulate.py", title="Simulate", icon=":material/laps:")
-fit_page = st.Page("fit.py", title="Fit/Train", icon=":material/model_training:")
-nca_page = st.Page("nca.py", title="NCA", icon=":material/query_stats:")
+simulate_page = st.Page("simulate.py", title="🔜Simulate", icon=":material/laps:")
+fit_page = st.Page("fit.py", title="🔜Fit/Train", icon=":material/model_training:")
+nca_page = st.Page("nca.py", title="🔜NCA", icon=":material/query_stats:")
 support_info_page = st.Page(
     "support/info.py", title="Info", icon=":material/info:"
 )
