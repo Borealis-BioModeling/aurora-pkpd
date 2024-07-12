@@ -202,7 +202,7 @@ st.markdown("------")
 # st.write(compartments)
 st.markdown("### 5. Save and Download")
 st.markdown(
-    "**Save** your new model if you want to continue and use the Explore or Fit/Train tools."
+    "**Save** your new model if you want to continue and use other compartmental PK/PD tools."
 )
 st.markdown("**Download** your new model for later use.")
 if "tmp_dir" not in st.session_state:
@@ -244,8 +244,9 @@ crafted, model_text = write_model()
 model = util.import_model()
 
 
-st.write(model)
-st.code(model_text, line_numbers=True)
+#st.write(model)
+with st.expander("See model code"):
+    st.code(model_text, line_numbers=True)
 left, right = st.columns(2)
 right.download_button(
     'Download "model.py"',
@@ -263,8 +264,9 @@ if left.button("Save"):
         model_old = st.session_state.model
         model_text_old = st.session_state.model_str
         st.write("Previously saved model:")
-        st.write(model_old)
-        st.code(model_text_old, line_numbers=True)
+        #st.write(model_old)
+        with st.expander("See old model code"):
+            st.code(model_text_old, line_numbers=True)
         if st.button("Save and Overwrite"):
             util.save_model(model)
             util.save_model_str(model_text)

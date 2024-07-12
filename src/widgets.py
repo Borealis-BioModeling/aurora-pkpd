@@ -31,6 +31,10 @@ def under_construction():
         icon="👷‍♂️",
     )
 
+def model_check_notification():
+    if "model" in st.session_state:
+        st.info("NOTE: A model has already been uploaded or built.")
+
 def compartmental_options():
     
     st.markdown("### Compartmental PK/PD modeling")
@@ -38,6 +42,7 @@ def compartmental_options():
     left, right = st.columns(2)
     left.page_link("upload.py", label="Upload Model", icon=":material/upload:")
     right.page_link("build.py", label="Build Model", icon=":material/build:")
+    model_check_notification()
     viz_simulate_fit()
 
 def nca_options():
