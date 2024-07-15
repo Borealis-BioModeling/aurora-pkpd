@@ -18,13 +18,13 @@ if "tmp_dir" not in st.session_state:
 home_page = st.Page("home.py", title="Home", icon=":material/house:")
 upload_page = st.Page("upload.py", title="Upload", icon=":material/upload:")
 build_page = st.Page("build.py", title="Build", icon=":material/build:")
+edit_page = st.Page("edit.py", title="Edit", icon=":material/code:")
 viz_page = st.Page("visualize.py", title="Visualize", icon=":material/hub:")
 simulate_page = st.Page("simulate.py", title="🔜Simulate", icon=":material/laps:")
 fit_page = st.Page("fit.py", title="🔜Fit/Train", icon=":material/model_training:")
+analyze_page = st.Page("analyze.py", title="🔜Analyze", icon=":material/analytics:")
 nca_page = st.Page("nca.py", title="🔜NCA", icon=":material/query_stats:")
-support_info_page = st.Page(
-    "support/info.py", title="Info", icon=":material/info:"
-)
+support_info_page = st.Page("support/info.py", title="Info", icon=":material/info:")
 # support_help_page = st.Page(
 #     "support/help.py", title="Help", icon=":material/help:"
 # )
@@ -32,8 +32,16 @@ support_info_page = st.Page(
 pg = st.navigation(
     {
         " ": [home_page],
-        "Compartmental": [upload_page, build_page, viz_page, simulate_page, fit_page],
-        "Non-compartmental" : [nca_page],
+        "Compartmental": [
+            upload_page,
+            build_page,
+            edit_page,
+            viz_page,
+            simulate_page,
+            fit_page,
+            analyze_page,
+        ],
+        "Non-compartmental": [nca_page],
         "Support": [support_info_page],
     }
 )

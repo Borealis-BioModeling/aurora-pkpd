@@ -13,11 +13,16 @@ compartment_counts = {"one": 1, "two": 2, "three": 3}
 # col1, col2, col3 = st.columns(3)
 # with col2:
 #     st.header("Model Builder")
-st.title("Model Builder")
+st.title("Build Your Model")
 # with col3:
 #     st.image("https://avatars.githubusercontent.com/u/163594810?s=200&v=4", width=100)
 
-st.text("Build a compartmental PK/PB model using the PySB format.")
+st.write('''
+Welcome to the Build page! Here, you can create a new compartmental
+pharmacokinetic/pharmacodynamic (PK/PD) model using Aurora PK/PD's
+graphical, interactive step-by-step interface.
+         '''
+         )
 
 st.write(" ")
 st.markdown("------")
@@ -197,10 +202,26 @@ if st.toggle("Include a PD model?"):
 st.write(" ")
 st.markdown("------")
 
+st.markdown("### 6. Define Observables")
+st.write("Add an observable quantity for ", drug_name, " concentration in compartment(s):")
+
+observe = list()
+for i in range(n_comp):
+    left, center, right = st.columns(3)
+    comp_i = compartments[i]["name"]
+    # left.write(" ")
+    is_on = left.toggle("{}".format(comp_i), key="toggle_observable_{}".format(comp_i))
+    if is_on:
+        observe.append([drug_name, comp_i])
+    if n_comp > 1:
+        st.markdown("------")
+
+st.write(" ")
+st.markdown("------")
 # st.write(distributes)
 # st.write(eliminates)
 # st.write(compartments)
-st.markdown("### 5. Save and Download")
+st.markdown("### 7. Save and Download")
 st.markdown(
     "**Save** your new model if you want to continue and use other compartmental PK/PD tools."
 )
@@ -228,6 +249,8 @@ def write_model():
             util.elimination(f, drug_name, eliminates)
         if pd_model is not None:
             util.pd_model(f, drug_name, pd_model, effect_compartment, pd_kwargs)
+        if len(observe) > 0:
+            util.observables(f, observe)
     crafted = True
     with open(st.session_state.model_file, "r") as f:
         model_text = f.read()
@@ -276,7 +299,8 @@ if left.button("Save"):
         util.save_model_str(model_text)
         st.info("Model saved!", icon="💾")    
 if "model" in st.session_state:
-    widgets.viz_simulate_fit()       
+    widgets.viz_simulate_fit()
+    widgets.also_edit()       
 st.write(" ")
 st.write(" ")
 powered_by = "Model powered by PySB {} and pysb-pkpd {}".format(

@@ -6,13 +6,21 @@ import tempfile
 import util
 import widgets
 
-st.title("Upload Model")
-#st.info("version 0.1.0-alpha")
+st.title("Upload Your Model")
+# st.info("version 0.1.0-alpha")
 st.divider()
-st.write(" ")
-st.markdown(
-    "### Would you like to upload an existing PK/PD model?"
+st.write(
+    """
+Welcome to the Upload page! Here, you can upload your existing
+pharmacokinetic/pharmacodynamic (PK/PD) models in the PySB format.
+Aurora PK/PD supports PySB Python files, including the pysb-pkpd add-on. 
+Start a new analysis with an existing model or continue a previous session
+with a model constructed using Aurora PK/PD.
+"""
 )
+
+st.write(" ")
+st.markdown("### Would you like to upload an existing PK/PD model?")
 
 if "tmp_dir" not in st.session_state:
     tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-", delete=False)
@@ -21,13 +29,16 @@ if "tmp_dir" not in st.session_state:
     st.session_state.model_file = model_file_name
 
 
-#left, right = st.columns(2)
+# left, right = st.columns(2)
 # if left.button("Build new model"):
 #     st.switch_page("build.py")
-uploaded_model = st.file_uploader(" ", type=['py'])
+uploaded_model = st.file_uploader(" ", type=["py"])
 if uploaded_model is not None:
     if "model" in st.session_state:
-        st.warning('A model has been uploaded or built already. If you save the new model the other one will be overwritten.', icon="⚠️")
+        st.warning(
+            "A model has been uploaded or built already. If you save the new model the other one will be overwritten.",
+            icon="⚠️",
+        )
         model_old = st.session_state.model
         model_text_old = st.session_state.model_str
         st.write("Previously saved model:")
@@ -45,6 +56,7 @@ if uploaded_model is not None:
             model = util.import_model()
             util.save_model(model)
             widgets.viz_simulate_fit()
+            widgets.also_edit()
 
     else:
         # To convert to a string based IO:
@@ -58,6 +70,7 @@ if uploaded_model is not None:
         model = util.import_model()
         util.save_model(model)
         widgets.viz_simulate_fit()
+        widgets.also_edit()
 
 st.divider()
 st.markdown("### Or would you like to build a new custom PK/PD model?")
@@ -65,10 +78,10 @@ if st.button("Build new model"):
     st.switch_page("build.py")
 
 from importlib.metadata import version
+
 st.write(" ")
 st.write(" ")
 powered_by = "Models powered by PySB {} and pysb-pkpd {}".format(
     version("pysb"), version("pysb.pkpd")
 )
 st.caption(powered_by)
-        

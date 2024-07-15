@@ -143,7 +143,7 @@ def compartments(file, comp_list):
         )
     elif n_comp > 3:
         for i in range(n_comp):
-            file.write("# Compartment {}".format(i + 1))
+            file.write("# Compartment {} \n".format(i + 1))
             file.write(
                 'pkpd.one_compartment("{}", {}) \n'.format(
                     comp_list[i]["name"], comp_list[i]["size"]
@@ -199,6 +199,11 @@ def pd_model(file, drug_name, pd_model_name, pd_compartment, pd_kwargs):
     file.write("\n")
     return
 
+def observables(file, observe):
+    file.write("##  Observables  ## \n")
+    for obs in observe:
+        file.write("Observable(\"obs_{}_{}\", {}()**{}) \n".format(*obs, *obs))
+    file.write("\n")
 
 def import_model():
 

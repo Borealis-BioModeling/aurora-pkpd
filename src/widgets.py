@@ -14,6 +14,10 @@ def viz_simulate_fit():
     center.page_link("simulate.py", label="Simulate Model", icon=":material/laps:")
     right.page_link("fit.py", label="Fit/Train Model", icon=":material/model_training:")
 
+def also_edit():
+    #st.markdown("#### You can also:")
+    st.page_link("edit.py", label="Edit Model Code", icon=":material/code:")   
+
 
 def divider_blank():
     st.divider()
