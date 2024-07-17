@@ -15,4 +15,16 @@ PK parameters for processes like distribution and elimination.
 )
 
 widgets.divider_blank()
-widgets.under_construction()
+st.error(
+'''
+The Fit/Train feature is still under development, including the creation
+of another PySB add-on and its integration
+into this web app. To accelerate its completion, I’m seeking your support.
+
+Please consider contributing to my fundraising goal to implement this
+and other Aurora PK/PD features. Every contribution helps cover my time as an
+independent developer and helps get me closer to delivering a more robust set of
+open-source tools for PK/PD modeling and analysis.
+'''
+)
+st.link_button(":dollar: Support this Goal on Ko-fi", "https://ko-fi.com/blakeaw/goal?g=0", help="Click to see my Ko-fi page and learn more about this funding Goal.")

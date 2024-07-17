@@ -4,9 +4,9 @@ import tempfile
 
 
 st.logo(
-    "https://drive.google.com/thumbnail?id=1VD8GOQyppZDRRqw1p03Akpo_P7fAxsye",
+    os.path.relpath("../assets/aurora-pkpd-logo-wide.png"),
     link=None,
-    icon_image="https://drive.google.com/thumbnail?id=1itHVJ4zoncjGCnEWMMjpgyFrz2J6_YP8",
+    icon_image=os.path.relpath("../assets/aurora-pkpd-logo-2.png"),
 )
 
 if "tmp_dir" not in st.session_state:

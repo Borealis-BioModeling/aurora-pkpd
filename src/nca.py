@@ -17,13 +17,15 @@ widgets.divider_blank()
 
 st.error(
 '''
-This feature is still under development, which includes developing 
-a separate Python-based NCA package along with its incorporation here in this
-web app. To accelerate it's completion, I'm seeking your support.
+The Non-Compartmental Analysis (NCA) feature
+is still under development, including the creation
+of a Python-based NCA package and its integration
+into this web app. To accelerate its completion, I’m seeking your support.
 
-Please consider contributing to my fundraising goal of $1000 to 
-get this feature implemented. All finanical contributions directly
-support the development of this feature, and every contribution helps.
+Please consider contributing to my fundraising goal to implement this
+and other Aurora PK/PD features. Every contribution helps cover my time as an
+independent developer and helps get me closer to delivering a more robust set of
+open-source tools for PK/PD modeling and analysis.
 '''
 )
-st.link_button(":dollar: Sponsor this feature", "https://ko-fi.com/blakeaw/goal?g=0", help="Ko-fi Goal")
+st.link_button(":dollar: Support this Goal on Ko-fi", "https://ko-fi.com/blakeaw/goal?g=0", help="Click to see my Ko-fi page and learn more about this funding Goal.")

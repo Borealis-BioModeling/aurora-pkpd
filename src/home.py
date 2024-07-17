@@ -11,6 +11,7 @@ center.image(
     "https://drive.google.com/thumbnail?id=1itHVJ4zoncjGCnEWMMjpgyFrz2J6_YP8&sz=w200"
 )
 
+
 # st.title("Aurora PK/PD")
 center.info("version 0.1.0-alpha")
 widgets.divider_blank()

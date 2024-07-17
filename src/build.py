@@ -6,6 +6,7 @@ import importlib.util
 import sys
 import tempfile
 import widgets
+import astropy.units as u
 
 compartment_counts = {"one": 1, "two": 2, "three": 3}
 
@@ -17,12 +18,13 @@ st.title("Build Your Model")
 # with col3:
 #     st.image("https://avatars.githubusercontent.com/u/163594810?s=200&v=4", width=100)
 
-st.write('''
+st.write(
+    """
 Welcome to the Build page! Here, you can create a new compartmental
 pharmacokinetic/pharmacodynamic (PK/PD) model using Aurora PK/PD's
 graphical, interactive step-by-step interface.
-         '''
-         )
+         """
+)
 
 st.write(" ")
 st.markdown("------")
@@ -41,6 +43,35 @@ st.markdown("------")
 #     else:
 #         st.stop()
 
+st.markdown("### 1. Define Core Units")
+left, center, right = st.columns(3)
+with left:
+    unit_time = st.selectbox("Time Unit: ", ["s", "h"])
+with center:
+    unit_concentration = st.selectbox(
+        "Concentration Unit: ",
+        [
+            "g / L",
+            "mg / L",
+            "ug / L",
+            "mcg / L",
+            "ng / L",
+            "g / mL",
+            "mg / mL",
+            "ug / mL",
+            "mcg / mL",
+            "ng / mL",
+        ],
+    )
+with right:
+    unit_volume = st.selectbox("Volume Unit: ", ["L", "mL"])
+
+unit_amount = unit_concentration.split("/")[0]
+amount_unit = u.Unit(unit_amount)
+st.write(unit_amount, amount_unit)
+
+widgets.divider_blank()
+
 st.markdown("### 1. Define the Compartments")
 
 compartments = []
@@ -55,16 +86,28 @@ for i in range(n_comp):
     compartments.append({})
     st.write("Compartment  {}".format(i + 1))
     if i == 0:
-        cols = st.columns(2)
+        cols = st.columns(3)
         compartments[i]["name"] = cols[0].text_input("Name:", "CENTRAL")
         compartments[i]["size"] = cols[1].number_input(
-            "Size:", value=1.0, min_value=0.0, key="COMP_SIZE_{}".format(i)
+            "Volume:", value=1.0, min_value=0.0, key="COMP_SIZE_{}".format(i)
+        )
+        compartments[i]["unit"] = cols[2].selectbox(
+            "Unit",
+            ["L", "mL"],
+            help="Compartment volume unit.",
+            key="COMP_UNIT_{}".format(i),
         )
     else:
-        cols = st.columns(2)
+        cols = st.columns(3)
         compartments[i]["name"] = cols[0].text_input("Name:", "PERIPHERAL_{}".format(i))
         compartments[i]["size"] = cols[1].number_input(
-            "Size:", value=1.0, min_value=0.0, key="COMP_SIZE_{}".format(i)
+            "Volume:", value=1.0, min_value=0.0, key="COMP_SIZE_{}".format(i)
+        )
+        compartments[i]["unit"] = cols[2].selectbox(
+            "Unit",
+            ["L", "mL"],
+            help="Compartment volume unit.",
+            key="COMP_UNIT_{}".format(i),
         )
 compartment_list = [comp["name"] for comp in compartments]
 st.write(" ")
@@ -85,13 +128,13 @@ dosing = st.radio(
     ],
 )
 
-left, right = st.columns(2)
+left, center, right = st.columns(3)
 with left:
     drug_name = st.text_input("Drug Name: ", "Imagiprofen")
     dose_compartment = st.selectbox(
         "Dose Compartment:", compartment_list, placeholder="Choose a compartment"
     )
-with right:
+with center:
     if dosing == "I.V. Infusion":
         drug_dose = st.number_input(
             "Dose:", 0.0, help="Dose Infusion Rate (amount/time)"
@@ -114,6 +157,32 @@ with right:
             step=0.01,
             help="Fraction of the drug dose that gets absorbed.",
         )
+with right:
+    if dosing == "I.V. Infusion":
+        dose_unit = st.selectbox(
+            "Unit",
+            ["g / s", "mg / s", "ug / s", "mcg / s", "ng / s"],
+            help="Drug dose unit.",
+        )
+    else:
+        dose_unit = st.selectbox(
+            "Unit", ["g", "mg", "ug", "mcg", "ng"], help="Drug dose unit."
+        )
+    if dosing == "Oral":
+        kabs_unit = st.selectbox(
+            "Unit", ["1 / s", " 1 / h"], help="Absorption rate constant unit."
+        )
+# Manually convert the dose amounts and unit since
+# pysb-units may not autoconvert these values when using
+# mass per liter concentrations.
+if dosing == "I.V. Infusion":
+    new_unit = u.Unit(amount_unit.to_string() + "/ s")
+    drug_dose /= new_unit.to(dose_unit)
+    dose_unit = new_unit.to_string() 
+else:
+    new_unit = u.Unit(amount_unit.to_string())
+    drug_dose /= new_unit.to(dose_unit)
+    dose_unit = new_unit.to_string() 
 
 st.write(" ")
 st.markdown("------")
@@ -203,7 +272,9 @@ st.write(" ")
 st.markdown("------")
 
 st.markdown("### 6. Define Observables")
-st.write("Add an observable quantity for ", drug_name, " concentration in compartment(s):")
+st.write(
+    "Add an observable quantity for ", drug_name, " concentration in compartment(s):"
+)
 
 observe = list()
 for i in range(n_comp):
@@ -267,7 +338,7 @@ crafted, model_text = write_model()
 model = util.import_model()
 
 
-#st.write(model)
+# st.write(model)
 with st.expander("See model code"):
     st.code(model_text, line_numbers=True)
 left, right = st.columns(2)
@@ -287,20 +358,20 @@ if left.button("Save"):
         model_old = st.session_state.model
         model_text_old = st.session_state.model_str
         st.write("Previously saved model:")
-        #st.write(model_old)
+        # st.write(model_old)
         with st.expander("See old model code"):
             st.code(model_text_old, line_numbers=True)
         if st.button("Save and Overwrite"):
             util.save_model(model)
             util.save_model_str(model_text)
-            st.info("Model saved!", icon="💾")    
+            st.info("Model saved!", icon="💾")
     else:
         util.save_model(model)
         util.save_model_str(model_text)
-        st.info("Model saved!", icon="💾")    
+        st.info("Model saved!", icon="💾")
 if "model" in st.session_state:
     widgets.viz_simulate_fit()
-    widgets.also_edit()       
+    widgets.also_edit()
 st.write(" ")
 st.write(" ")
 powered_by = "Model powered by PySB {} and pysb-pkpd {}".format(
