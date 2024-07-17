@@ -3,8 +3,9 @@ from pathlib import Path
 import os
 from io import StringIO
 import tempfile
-import util
-import widgets
+
+util = st.session_state.util_module
+widgets = st.session_state.widgets_module
 
 left, center, right = st.columns(3)
 center.image(

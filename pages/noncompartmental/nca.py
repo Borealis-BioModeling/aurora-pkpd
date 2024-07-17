@@ -1,5 +1,6 @@
 import streamlit as st
-import widgets
+util = st.session_state.util_module
+widgets = st.session_state.widgets_module
 
 st.title("Non-Compartmental Analysis (NCA)")
 widgets.divider_blank()

@@ -1,14 +1,16 @@
 import streamlit as st
 from importlib.metadata import version
-import util
 import os
 import importlib.util
 import sys
 import tempfile
-import widgets
 import astropy.units as u
 
+util = st.session_state.util_module
+widgets = st.session_state.widgets_module
+
 compartment_counts = {"one": 1, "two": 2, "three": 3}
+
 
 
 # col1, col2, col3 = st.columns(3)
