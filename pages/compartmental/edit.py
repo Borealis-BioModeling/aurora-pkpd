@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 util = st.session_state.util_module
 widgets = st.session_state.widgets_module
 
@@ -31,6 +32,7 @@ content = st_monaco(value=model_txt, height="800px", language="python")
 if st.button(":floppy_disk: Save Changes"):
     with open(st.session_state.model_file, "w") as f:
         f.write(content)
+    #os.system("python -m black {}".format(st.session_state.model_file))
     model = util.import_model()
     if model is None:
         st.warning("Unable to import the model due to an error. Save was aborted.", icon="⚠️")

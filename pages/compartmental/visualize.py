@@ -21,14 +21,13 @@ widgets.divider_blank()
 if "model" in st.session_state:
     model = st.session_state.model
 else:
-    st.warning("Need to buil or upload a model first!")
+    st.warning("Need to build or upload a model first!")
     st.stop()
 
 
 from pyvipr.pysb_viz.static_viz import PysbStaticViz
 import streamlit.components.v1 as components
 from pyvis.network import Network
-import util
 
 model_viz = PysbStaticViz(model, generate_eqs=True)
 #

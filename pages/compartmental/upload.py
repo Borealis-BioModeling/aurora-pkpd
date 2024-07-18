@@ -13,7 +13,7 @@ st.write(
     """
 Welcome to the Upload page! Here, you can upload your existing
 pharmacokinetic/pharmacodynamic (PK/PD) models in the PySB format.
-Aurora PK/PD supports PySB Python files, including the pysb-pkpd add-on. 
+Aurora PK/PD supports PySB Python files, including the pysb-pkpd and pysb-units add-ons. 
 Start a new analysis with an existing model or continue a previous session
 with a model constructed using Aurora PK/PD.
 """
@@ -81,7 +81,7 @@ from importlib.metadata import version
 
 st.write(" ")
 st.write(" ")
-powered_by = "Models powered by PySB {} and pysb-pkpd {}".format(
-    version("pysb"), version("pysb.pkpd")
+powered_by = "Models powered by PySB {} with add-ons: pysb-pkpd {} and pysb-units {}".format(
+    version("pysb"), version("pysb.pkpd"), version("pysb.units"),
 )
 st.caption(powered_by)

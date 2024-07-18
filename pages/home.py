@@ -26,10 +26,9 @@ modeling and Non-compartmental PK analysis (NCA) tools for
 academic researchers and small biotech/pharma startups.
 
 While not all features are fully completed yet, I am
-hopeful that Aurora PK/PD will become an essential part
-of your drug discovery toolkit, enabling you to conserve
-critical funds while still gaining the pharmacological insights
- needed to advance your research efforts.
+hopeful that Aurora PK/PD will eventually become an essential part
+of your drug discovery toolkit, enabling you to gain the pharmacological insights
+needed to advance your research efforts.
 
 Your feedback and support are invaluable in helping Aurora PK/PD grow and evolve.
 If you find the software useful, consider contributing to its development, spreading
