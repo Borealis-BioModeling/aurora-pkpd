@@ -10,11 +10,7 @@ st.logo(
     icon_image="assets/aurora-pkpd-logo-2.png",
 )
 
-if "tmp_dir" not in st.session_state:
-    tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-", delete=False)
-    st.session_state.tmp_dir = tmp_dir
-    model_file_name = os.path.join(st.session_state.tmp_dir.name, "model.py")
-    st.session_state.model_file = model_file_name
+
 
 def load_util_module(module_name: str):
     import importlib.util
@@ -23,12 +19,6 @@ def load_util_module(module_name: str):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
-
-if "widgets_module" not in st.session_state:
-    st.session_state.widgets_module = load_util_module("widgets")
-
-if "util_module" not in st.session_state:
-    st.session_state.util_module = load_util_module("util")
 
 home_page = st.Page("pages/home.py", title="Home", icon=":material/house:")
 upload_page = st.Page("pages/compartmental/upload.py", title="Upload", icon=":material/upload:")
@@ -64,3 +54,15 @@ pg = st.navigation(
 )
 
 pg.run()
+
+if "tmp_dir" not in st.session_state:
+    tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-")
+    st.session_state.tmp_dir = tmp_dir
+    model_file_name = os.path.join(st.session_state.tmp_dir.name, "model.py")
+    st.session_state.model_file = model_file_name
+
+if "widgets_module" not in st.session_state:
+    st.session_state.widgets_module = load_util_module("widgets")
+
+if "util_module" not in st.session_state:
+    st.session_state.util_module = load_util_module("util")
