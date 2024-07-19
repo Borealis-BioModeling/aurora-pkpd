@@ -39,6 +39,7 @@ simulate_page = st.Page("pages/compartmental/simulate.py", title="🔜Simulate",
 fit_page = st.Page("pages/compartmental/fit.py", title="🔜Fit/Train", icon=":material/model_training:")
 analyze_page = st.Page("pages/compartmental/analyze.py", title="🔜Analyze", icon=":material/analytics:")
 nca_page = st.Page("pages/noncompartmental/nca.py", title="🔜NCA", icon=":material/query_stats:")
+pdfit_page = st.Page("pages/pdanalysis/responsefit.py", title="🔜Response Fit", icon=":material/elevation:")
 support_info_page = st.Page("pages/support/info.py", title="Info", icon=":material/info:")
 # support_help_page = st.Page(
 #     "support/help.py", title="Help", icon=":material/help:"
@@ -47,7 +48,7 @@ support_info_page = st.Page("pages/support/info.py", title="Info", icon=":materi
 pg = st.navigation(
     {
         " ": [home_page],
-        "Compartmental": [
+        "Compartmental PK/PD": [
             upload_page,
             build_page,
             edit_page,
@@ -56,7 +57,8 @@ pg = st.navigation(
             fit_page,
             analyze_page,
         ],
-        "Non-compartmental": [nca_page],
+        "Non-compartmental PK": [nca_page],
+        "PD Analysis": [pdfit_page],
         "Support": [support_info_page],
     }
 )

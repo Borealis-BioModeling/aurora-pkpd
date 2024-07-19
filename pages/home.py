@@ -16,30 +16,29 @@ center.image(
 # st.title("Aurora PK/PD")
 center.info("version 0.1.0-alpha")
 widgets.divider_blank()
-st.subheader("This is Aurora PK/PD")
-st.write(
+st.subheader("Aurora PK/PD: Open-Source PK/PD Modeling and Analysis Tools for Academics and Small Startups.")
+st.markdown(
     """
-Welcome to Aurora PK/PD, an open-source Python web app
-aiming to provide a robust and accessible set of dynamic
+Welcome to **Aurora PK/PD**, an open-source Python web app
+that aims to provide a robust and accessible set of dynamic
 compartmental pharmacokinetics and pharmacodynamics (PK/PD)
-modeling and Non-compartmental PK analysis (NCA) tools for
+modeling and Non-compartmental PK analysis (NCA) tools geared towards
 academic researchers and small biotech/pharma startups.
 
-While not all features are fully completed yet, I am
+While I haven't completed all the planned features yet, I am
 hopeful that Aurora PK/PD will eventually become an essential part
-of your drug discovery toolkit, enabling you to gain the pharmacological insights
-needed to advance your research efforts.
+of your model-informed drug discovery and development toolkit that helps
+accelerate your efforts to derive pharmacological insights from your clinical data
+and ultimately discover new medicines.
+
 
 Your feedback and support are invaluable in helping Aurora PK/PD grow and evolve.
-If you find the software useful, consider contributing to its development, spreading
-the word within the wider community, or becoming a financial sponsor to aid its continued
-improvement. Together, we can make an impact on the future of pharmacological modeling
-and analysis.
+If you find the software useful, consider contributing to its development,
+sharing it with your network, or becoming a financial sponsor to aid its continued
+improvement.
 """
 )
-# st.write(
-#     "Explore Aurora PK/PD, an open-source Python web app designed for dynamic compartmental PK/PD modeling and robust Non-compartmental PK analysis (NCA). Created specifically for academic researchers and small biotech/pharma startups, Aurora PK/PD offers a free suite of high-quality modeling and analysis tools, enabling you to conserve your limited funds while still obtaining the pharmacological insights needed to take your drug discovery efforts to the next level! "
-# )
+
 
 
 widgets.divider_blank()
