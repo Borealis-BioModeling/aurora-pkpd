@@ -4,12 +4,36 @@ import os
 from io import StringIO
 import tempfile
 
+
+
+def load_util_module(module_name: str):
+    import importlib.util
+    file_path = os.path.join(os.path.dirname(__file__), os.path.relpath("../util/"+module_name+".py"))
+    spec = importlib.util.spec_from_file_location(module_name, file_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+if "tmp_dir" not in st.session_state:
+    tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-")
+    st.session_state.tmp_dir = tmp_dir
+    model_file_name = os.path.join(st.session_state.tmp_dir.name, "model.py")
+    st.session_state.model_file = model_file_name
+
+if "widgets_module" not in st.session_state:
+    st.session_state.widgets_module = load_util_module("widgets")
+
+if "util_module" not in st.session_state:
+    st.session_state.util_module = load_util_module("util")
+
 util = st.session_state.util_module
 widgets = st.session_state.widgets_module
 
+
+
 left, center, right = st.columns(3)
 center.image(
-    "https://drive.google.com/thumbnail?id=1itHVJ4zoncjGCnEWMMjpgyFrz2J6_YP8&sz=w200"
+    "assets/aurora-pkpd-logo-2.png"
 )
 
 
