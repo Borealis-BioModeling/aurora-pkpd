@@ -6,13 +6,13 @@ import tempfile
 
 from app_util import util, widgets
 
-def load_util_module(module_name: str):
-    import importlib.util
-    file_path = os.path.join(os.path.dirname(__file__), os.path.relpath("../util/"+module_name+".py"))
-    spec = importlib.util.spec_from_file_location(module_name, file_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+# def load_util_module(module_name: str):
+#     import importlib.util
+#     file_path = os.path.join(os.path.dirname(__file__), os.path.relpath("../util/"+module_name+".py"))
+#     spec = importlib.util.spec_from_file_location(module_name, file_path)
+#     module = importlib.util.module_from_spec(spec)
+#     spec.loader.exec_module(module)
+#     return module
 
 if "tmp_dir" not in st.session_state:
     tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-")
