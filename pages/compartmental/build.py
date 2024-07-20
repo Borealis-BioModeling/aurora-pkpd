@@ -6,8 +6,7 @@ import sys
 import tempfile
 import astropy.units as u
 
-util = st.session_state.util_module
-widgets = st.session_state.widgets_module
+from app_util import util, widgets
 
 
 # https://discuss.streamlit.io/t/how-to-set-the-background-color-and-text-color-of-st-header-st-write-etc-and-let-the-text-be-showed-at-the-left-side-of-input-and-select-box/11826

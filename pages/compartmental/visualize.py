@@ -1,6 +1,5 @@
 import streamlit as st
-util = st.session_state.util_module
-widgets = st.session_state.widgets_module
+from app_util import util, widgets
 
 # col1, col2, col3 = st.columns(3)
 # with col2:

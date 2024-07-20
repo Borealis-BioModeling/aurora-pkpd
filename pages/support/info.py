@@ -1,7 +1,6 @@
 
 import streamlit as st
-util = st.session_state.util_module
-widgets = st.session_state.widgets_module
+from app_util import util, widgets
 
 st.title("Support Info")
 widgets.divider_blank()

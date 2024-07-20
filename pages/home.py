@@ -4,7 +4,7 @@ import os
 from io import StringIO
 import tempfile
 
-
+from app_util import util, widgets
 
 def load_util_module(module_name: str):
     import importlib.util
@@ -20,14 +20,14 @@ if "tmp_dir" not in st.session_state:
     model_file_name = os.path.join(st.session_state.tmp_dir.name, "model.py")
     st.session_state.model_file = model_file_name
 
-if "widgets_module" not in st.session_state:
-    st.session_state.widgets_module = load_util_module("widgets")
+# if "widgets_module" not in st.session_state:
+#     st.session_state.widgets_module = load_util_module("widgets")
 
-if "util_module" not in st.session_state:
-    st.session_state.util_module = load_util_module("util")
+# if "util_module" not in st.session_state:
+#     st.session_state.util_module = load_util_module("util")
 
-util = st.session_state.util_module
-widgets = st.session_state.widgets_module
+# util = st.session_state.util_module
+# widgets = st.session_state.widgets_module
 
 
 

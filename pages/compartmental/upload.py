@@ -3,8 +3,7 @@ from pathlib import Path
 import os
 from io import StringIO
 import tempfile
-util = st.session_state.util_module
-widgets = st.session_state.widgets_module
+from app_util import util, widgets
 
 st.title("Upload Your Model")
 # st.info("version 0.1.0-alpha")

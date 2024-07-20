@@ -1,15 +1,14 @@
 import streamlit as st
 
-util = st.session_state.util_module
-widgets = st.session_state.widgets_module
+from app_util import util, widgets
 
-st.title("Fit Your Response Data")
+st.title("Fit Your Exposure-Response Data")
 widgets.divider_blank()
 st.write(
     """
-This tool lets you fit your experimental data with pharmacodynamic (PD) response models.
+This tool lets you fit your experimental data with pharmacodynamic (PD) exposure-response models.
 This feature allows you to analyze how different drugs affect biological systems by fitting
-dose-response data and other relevant parameters to established PD models. Use this tool to gain
+exposure-response data and other relevant parameters to established PD models. Use this tool to gain
 insights into the efficacy and potency of your compounds and optimize your drug development process.
 """
 )
@@ -21,7 +20,7 @@ st.error(
 The PD Response Fitting feature
 is still under development. To accelerate its completion, I’m seeking your support.
 
-Please consider contributing to my fundraising goal to implement this
+Please consider contributing financially to help me implement this
 and other Aurora PK/PD features. Every contribution helps cover my time as an
 independent developer and helps get me closer to delivering a more robust set of
 open-source tools for PK/PD modeling and analysis.

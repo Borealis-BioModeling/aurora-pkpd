@@ -1,15 +1,11 @@
 import streamlit as st
 import os
 
+# --- PAGE CONFIG ---
 st.set_page_config(page_title="Aurora PK/PD", page_icon=":sparkles:")
 
-st.logo(
-    "assets/aurora-pkpd-logo-wide.png",
-    link=None,
-    icon_image="assets/aurora-pkpd-logo-2.png",
-)
 
-
+# --- PAGE SETUP ---
 home_page = st.Page("pages/home.py", title="Home", icon=":material/house:")
 upload_page = st.Page("pages/compartmental/upload.py", title="Upload", icon=":material/upload:")
 build_page = st.Page("pages/compartmental/build.py", title="Build", icon=":material/build:")
@@ -19,12 +15,11 @@ simulate_page = st.Page("pages/compartmental/simulate.py", title="🔜Simulate",
 fit_page = st.Page("pages/compartmental/fit.py", title="🔜Fit/Train", icon=":material/model_training:")
 analyze_page = st.Page("pages/compartmental/analyze.py", title="🔜Analyze", icon=":material/analytics:")
 nca_page = st.Page("pages/noncompartmental/nca.py", title="🔜NCA", icon=":material/query_stats:")
-pdfit_page = st.Page("pages/pdanalysis/responsefit.py", title="🔜Response Fit", icon=":material/elevation:")
+pdfit_page = st.Page("pages/pdanalysis/responsefit.py", title="🔜Exposure-Response", icon=":material/elevation:")
 support_info_page = st.Page("pages/support/info.py", title="Info", icon=":material/info:")
-# support_help_page = st.Page(
-#     "support/help.py", title="Help", icon=":material/help:"
-# )
 
+
+# --- NAVIGATION SETUP [WITH SECTIONS]---
 pg = st.navigation(
     {
         " ": [home_page],
@@ -43,5 +38,14 @@ pg = st.navigation(
     }
 )
 
+# --- SHARED ON ALL PAGES ---
+st.logo(
+    "assets/aurora-pkpd-logo-wide.png",
+    link=None,
+    icon_image="assets/aurora-pkpd-logo-2.png",
+)
+st.sidebar.markdown(" A Streamlit web app by [@blakeaw](https://github.com/blakeaw)")
+
+# --- RUN NAVIGATION ---
 pg.run()
 
