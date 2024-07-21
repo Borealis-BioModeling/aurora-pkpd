@@ -45,7 +45,7 @@ st.logo(
     icon_image="assets/aurora-pkpd-logo-2.png",
 )
 st.sidebar.markdown(" A Streamlit web app by [@blakeaw](https://github.com/blakeaw)")
-
+st.sidebar.link_button(":dollar: Sponsor on Ko-fi", "https://ko-fi.com/blakeaw/goal?g=0", help="Click to see my Ko-fi page.")
 # --- RUN NAVIGATION ---
 pg.run()
 
