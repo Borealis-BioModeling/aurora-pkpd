@@ -35,9 +35,14 @@ nca_page = st.Page(
     "pages/noncompartmental/nca.py", title="🔜NCA", icon=":material/query_stats:"
 )
 pdfit_page = st.Page(
-    "pages/pdanalysis/responsefit.py",
+    "pages/pdanalysis/exposureresponse.py",
     title="🔜Exposure-Response",
     icon=":material/elevation:",
+)
+htprolif_page = st.Page(
+    "pages/pdanalysis/htproliferation.py",
+    title="🔜HT Cell Proliferation",
+    icon=":material/apps:",
 )
 support_info_page = st.Page(
     "pages/support/info.py", title="Info", icon=":material/info:"
@@ -58,7 +63,7 @@ pg = st.navigation(
             analyze_page,
         ],
         "Non-compartmental PK": [nca_page],
-        "PD Analysis": [pdfit_page],
+        "PD Analysis": [pdfit_page, htprolif_page],
         "Support": [support_info_page],
     }
 )
