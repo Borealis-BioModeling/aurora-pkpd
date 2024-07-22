@@ -2,21 +2,46 @@ import streamlit as st
 import os
 
 # --- PAGE CONFIG ---
-st.set_page_config(page_title="Aurora PK/PD", page_icon=":sparkles:")
+st.set_page_config(
+    page_title="Aurora PK/PD",
+    page_icon=":sparkles:",
+    initial_sidebar_state="auto",
+    layout="wide",
+)
 
 
 # --- PAGE SETUP ---
 home_page = st.Page("pages/home.py", title="Home", icon=":material/house:")
-upload_page = st.Page("pages/compartmental/upload.py", title="Upload", icon=":material/upload:")
-build_page = st.Page("pages/compartmental/build.py", title="Build", icon=":material/build:")
+upload_page = st.Page(
+    "pages/compartmental/upload.py", title="Upload", icon=":material/upload:"
+)
+build_page = st.Page(
+    "pages/compartmental/build.py", title="Build", icon=":material/build:"
+)
 edit_page = st.Page("pages/compartmental/edit.py", title="Edit", icon=":material/code:")
-viz_page = st.Page("pages/compartmental/visualize.py", title="Visualize", icon=":material/hub:")
-simulate_page = st.Page("pages/compartmental/simulate.py", title="🔜Simulate", icon=":material/laps:")
-fit_page = st.Page("pages/compartmental/fit.py", title="🔜Fit/Train", icon=":material/model_training:")
-analyze_page = st.Page("pages/compartmental/analyze.py", title="🔜Analyze", icon=":material/analytics:")
-nca_page = st.Page("pages/noncompartmental/nca.py", title="🔜NCA", icon=":material/query_stats:")
-pdfit_page = st.Page("pages/pdanalysis/responsefit.py", title="🔜Exposure-Response", icon=":material/elevation:")
-support_info_page = st.Page("pages/support/info.py", title="Info", icon=":material/info:")
+viz_page = st.Page(
+    "pages/compartmental/visualize.py", title="Visualize", icon=":material/hub:"
+)
+simulate_page = st.Page(
+    "pages/compartmental/simulate.py", title="Simulate", icon=":material/laps:"
+)
+fit_page = st.Page(
+    "pages/compartmental/fit.py", title="🔜Fit/Train", icon=":material/model_training:"
+)
+analyze_page = st.Page(
+    "pages/compartmental/analyze.py", title="🔜Analyze", icon=":material/analytics:"
+)
+nca_page = st.Page(
+    "pages/noncompartmental/nca.py", title="🔜NCA", icon=":material/query_stats:"
+)
+pdfit_page = st.Page(
+    "pages/pdanalysis/responsefit.py",
+    title="🔜Exposure-Response",
+    icon=":material/elevation:",
+)
+support_info_page = st.Page(
+    "pages/support/info.py", title="Info", icon=":material/info:"
+)
 
 
 # --- NAVIGATION SETUP [WITH SECTIONS]---
@@ -44,8 +69,13 @@ st.logo(
     link=None,
     icon_image="assets/aurora-pkpd-logo-2.png",
 )
-st.sidebar.markdown(" A Streamlit web app by [@blakeaw](https://github.com/blakeaw)")
-st.sidebar.link_button(":dollar: Sponsor on Ko-fi", "https://ko-fi.com/blakeaw/goal?g=0", help="Click to see my Ko-fi page.")
+st.sidebar.markdown("[Borealis BioModeling](https://github.com/Borealis-BioModeling)")
+st.sidebar.markdown("A Streamlit web app by [@blakeaw](https://github.com/blakeaw)")
+st.sidebar.markdown("[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J4ZUCVU)")
+# st.sidebar.link_button(
+#     ":dollar: Sponsor on Ko-fi",
+#     "https://ko-fi.com/blakeaw/goal?g=0",
+#     help="Click to see my Ko-fi page.",
+# )
 # --- RUN NAVIGATION ---
 pg.run()
-

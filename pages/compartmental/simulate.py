@@ -24,8 +24,6 @@ and test hypotheses in order to gain a deeper understanding of your model's beha
 )
 widgets.divider_blank()
 
-widgets.under_construction()
-
 if "model" in st.session_state:
     model = deepcopy(st.session_state.model)
 else:
@@ -90,8 +88,13 @@ def catagorize_parameters(model):
 params_categorized = catagorize_parameters(model)
 
 
-st.subheader("Model Parameters")
-st.divider()
+st.markdown("### Adjust Model Parameters")
+#st.divider()
+st.write('''
+Here, you can adjust the parameters of your pharmacokinetic/pharmacodynamic (PK/PD) model.
+Modify variables such as compartment volumes, dose, and rate constant to explore different
+scenarios and simulate the model's behavior under various conditions. 
+         ''')
 cols = st.columns(3)
 col_idx = 0
 for param, nominal in zip(model.parameters, nominals):
@@ -126,6 +129,12 @@ time_unit = model.simulation_units.time
 time_col = "Time" + f" ({time_unit})"
 concentration_unit = model.simulation_units.concentration
 st.divider()
+st.markdown("### Set Simulation Time and Execute")
+st.write('''
+Adjust the duration of your simulation to observe the behavior of your PK/PD model over different time periods.
+Once you have configured the simulation time, run the simulation to visualize how the model outputs respond and
+change over the specified timeframe.
+         ''')
 left, right = st.columns(2)
 with left:
     value = None
@@ -135,16 +144,16 @@ with left:
         max_value = 24.0 * 60.0 * 60.0
     elif time_unit == "h":
         value = 24.0
-        max_value = 24.0 * 14.0
+        max_value = 24.0 * 28.0
     total_time = st.slider(
-        "Set Simulation " + time_col,
+        "Simulation " + time_col,
         value=value,
         min_value=1.0,
         max_value=max_value,
         step=1.0,
     )
     tspan = np.arange(0, total_time + 1)
-if right.button("-------------- Run Simulation -----------------"):
+if right.button("Run Simulation", use_container_width=True):
     with right:
         with st.spinner("Running..."):
             sim_traj = pkpd.simulate(model, tspan)
@@ -156,34 +165,46 @@ if right.button("-------------- Run Simulation -----------------"):
             sim_traj_df.insert(0, time_col, tspan)
             st.session_state.sim_traj_df = sim_traj_df
 st.divider()
+st.markdown("### View Simulation Results")
+st.write('''
+Explore the outputs of your simulation, including a table
+and plots of model observables and pharmacodynamic (PD) effect values over time.
+This section provides a tabular and visual representations of how the model
+behaves with the specified parameters and time period.
+         ''')
 left, center, right = st.columns(3)
 with left:
 
     if st.session_state.sim_traj_df is not None:
-        st.write("Trajectory Data")
+        st.write("Tabular Data")
         st.dataframe(st.session_state.sim_traj_df, hide_index=True)
 
 with center:
     if st.session_state.sim_traj_df is not None:
         sim_traj_df = st.session_state.sim_traj_df
-
-        st.write("Observables")
-        st.line_chart(
-            data=sim_traj_df,
-            x=time_col,
-            y=[c for c in sim_traj_df.columns if c.startswith("obs")],
-            y_label=concentration_unit,
-        )
+        columns = sim_traj_df.columns[1:]
+        obs_columns = [c for c in sim_traj_df.columns if c.startswith("obs")]
+        st.write("Observables vs. Time")
+        selections = st.multiselect("Include", options=columns, default=obs_columns)
+        if len(selections) > 0:
+            st.line_chart(
+                data=sim_traj_df,
+                x=time_col,
+                y=selections,
+                y_label=concentration_unit,
+            )
 
 with right:
     if st.session_state.sim_traj_df is not None:
         sim_traj_df = st.session_state.sim_traj_df
+        columns = sim_traj_df.columns[1:]
         effect_col = [c for c in sim_traj_df.columns if ("expr" in c)]
-        if len(effect_col) > 0:
-            st.write("Effects")
+        st.write("Effect vs. Time")
+        selections = st.multiselect("Include", options=columns, default=effect_col)
+        if len(selections) > 0:    
             st.line_chart(
                 data=sim_traj_df,
                 x=time_col,
-                y=effect_col,
+                y=selections,
                 y_label="Effect",
             )

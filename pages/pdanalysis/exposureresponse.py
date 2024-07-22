@@ -17,7 +17,7 @@ widgets.divider_blank()
 
 st.error(
     """
-The PD Response Fitting feature
+The Exposure-Response (or Dose-Response) Fitting feature
 is still under development. To accelerate its completion, I’m seeking your support.
 
 Please consider contributing financially to help me implement this
