@@ -5,7 +5,6 @@ import pandas as pd
 import pysb.pkpd as pkpd
 from pysb.units.core import Model
 from app_util import util, widgets
-import matplotlib.pyplot as plt
 
 
 if "sim_traj_df" not in st.session_state:
