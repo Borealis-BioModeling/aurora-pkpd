@@ -78,9 +78,9 @@ if "er_data" in st.session_state:
             # Using a longform dataframe to plot scatter 
             # with data that has multiple error columns was adapted from
             # https://community.plotly.com/t/setting-multiple-error-bars-with-new-plotly-express-wide-data-feature/40382/9
-            long_df = data_df.melt(id_vars=x_col, value_vars=y_col, value_name="Effect", var_name="y_name")
+            long_df = data_df.melt(id_vars=x_col, value_vars=y_col, value_name="Response", var_name="y_name")
             long_df["y_error"] = data_df[y_err].unstack().values
-            fig = px.scatter(long_df, x=x_col, y="Effect", log_x=True, error_y='y_error')
+            fig = px.scatter(long_df, x=x_col, y="Response", log_x=True, error_y='y_error')
         else:
         #right.scatter_chart(data_df, x=x_col, y=y_col)
             fig = px.scatter(data_df, x=x_col, y=y_col, log_x=True)
@@ -114,3 +114,10 @@ with right:
 # for func in prm_functions:
 #     st.write(func[1].name, func[1].response_type)
 #     st.latex(func[1].eq_latex)
+from importlib.metadata import version
+st.write(" ")
+st.write(" ")
+powered_by = "Exposure-Response analysis powered by pharmacodynamic-response-models {} and plotly {}".format(
+    version("pharmacodynamic"), version("plotly")
+)
+st.caption(powered_by)
