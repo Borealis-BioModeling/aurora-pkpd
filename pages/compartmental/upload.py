@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 from io import StringIO
 import tempfile
+import requests
 from app_util import util, widgets
 
 st.title("Upload Your Model")
@@ -28,10 +29,15 @@ if "tmp_dir" not in st.session_state:
     st.session_state.model_file = model_file_name
 
 
-# left, right = st.columns(2)
+left, right = st.columns(2)
 # if left.button("Build new model"):
 #     st.switch_page("build.py")
-uploaded_model = st.file_uploader(" ", type=["py"])
+
+left.markdown("### Upload from file:")
+uploaded_model = left.file_uploader(" ", type=["py"])
+
+#col1,col2,col3 = st.columns([2,1,1])
+
 if uploaded_model is not None:
     if "model" in st.session_state:
         st.warning(
@@ -70,6 +76,33 @@ if uploaded_model is not None:
         util.save_model(model)
         widgets.viz_simulate_fit()
         widgets.also_edit()
+with right:
+    st.markdown("### OR,  Load from public repository:")
+    repo_host = st.radio("Choose Host", ['GitHub 🐙', 'GitLab 🦊'], horizontal=True)
+    
+    if repo_host == 'GitHub 🐙':
+        repo_user = st.text_input("Username or Organizaton:", placeholder='janedoe')
+    elif repo_host == 'GitLab 🦊':
+        repo_user = st.text_input("Username or Group:", placeholder='janedoe')
+    repo_name = st.text_input("Repository name:", placeholder='my-cool-repo')
+    repo_path = st.text_input("Path to model file:", placeholder='src/model.py')
+    to_load = st.button("Load")
+    if to_load:
+        if repo_host == 'GitHub 🐙':
+            repo_url = f'https://raw.githubusercontent.com/{repo_user}/{repo_name}/main/{repo_path}'
+        elif repo_host == 'GitLab 🦊':
+            repo_url = f'https://gitlab.com/{repo_user}/{repo_name}/-/raw/master/{repo_path}?ref_type=heads'
+        page = requests.get(repo_url)
+        string_data = page.text
+
+        util.save_model_str(string_data)
+        with open(st.session_state.model_file, "w") as f:
+            f.write(string_data)
+        model = util.import_model()
+        util.save_model(model)
+if to_load:
+    st.write("Uploaded model:")
+    st.code(string_data, line_numbers=True)
 
 st.divider()
 st.markdown("### Or would you like to build a new custom PK/PD model?")
