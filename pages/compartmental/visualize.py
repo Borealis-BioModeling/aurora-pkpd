@@ -40,7 +40,10 @@ else:
 #st.stop()
 #graph_json = model_viz.sp_view()      
 # graph_nx = to_networkx(graph_json)
-graph_nx = util.to_networkx_compartments(graph_json)
+if len(model.compartments) > 0:
+    graph_nx = util.to_networkx_compartments(graph_json)
+else:
+    graph_nx = util.to_networkx_species(graph_json)
 graph_pyvis = Network("500px", "700px", notebook=True, heading="", directed=True)
 graph_pyvis.from_nx(graph_nx)
 # graph_pyvis.show_buttons(filter_=['physics'])
@@ -54,8 +57,11 @@ st.markdown("### 1. Compartment View")
 components.html(graph_source, height=500, width=700)
 
 st.divider()
-
+# if len(model.compartments) > 0:
 graph_nx = util.to_networkx_species(graph_json)
+# else:
+#     graph_nx = util.to_networkx(graph_json)
+
 graph_pyvis = Network("700px", "700px", notebook=True, heading="", directed=True)
 graph_pyvis.from_nx(graph_nx)
 # graph_pyvis.show_buttons(filter_=['physics'])
