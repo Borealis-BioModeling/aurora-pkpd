@@ -65,9 +65,9 @@ if data_file is not None:
         st.session_state.er_data = pd.read_csv(data_file)
     else:
         st.session_state.er_data = pd.read_excel(data_file)
+
 st.markdown("### OR")
-if "er_data" not in st.session_state:
-    st.session_state.er_data = " "
+
 gsheet_df = widgets.google_sheet_loader()
 if gsheet_df is not None:
     st.session_state.er_data = gsheet_df
