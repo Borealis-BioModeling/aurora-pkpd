@@ -3,6 +3,7 @@ import os
 import importlib.util
 import sys
 import tempfile
+import pandas as pd
 
 dosing_strategies = {
     "I.V. Bolus": "pkpd.dose_bolus",
@@ -595,3 +596,12 @@ def to_networkx_compartments(cyjs, directed=True):
         if data["source_arrow_shape"] == "triangle":
             g.add_edge(target_compartment, source_compartment, attr_dict=data)
     return g
+
+
+def load_gsheet(sharing_link: str) -> pd.DataFrame:
+    # Load the Google sheet with data into a pandas
+    # DataFrame. Adpated from Ken Arnold's answer at:
+    # https://stackoverflow.com/questions/19611729/getting-google-spreadsheet-csv-into-a-pandas-dataframe
+    sheet_export = sharing_link.replace("/edit?usp=sharing", "/export?format=csv")
+    df = pd.read_csv(sheet_export)
+    return df

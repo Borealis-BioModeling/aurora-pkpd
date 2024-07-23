@@ -55,10 +55,26 @@ widgets.divider_blank()
 
 st.markdown("### 1. Upload Data")
 
-data_file = st.file_uploader("Upload data:", type=["csv"])
 
+
+st.markdown("#### Upload File")
+data_file = st.file_uploader("___", type=["csv", "xls", "xlsx"])
 if data_file is not None:
-    st.session_state.er_data = pd.read_csv(data_file)
+    extension = data_file.name.split(".")[-1]
+    if extension == 'csv':
+        st.session_state.er_data = pd.read_csv(data_file)
+    else:
+        st.session_state.er_data = pd.read_excel(data_file)
+st.markdown("### OR")
+if "er_data" not in st.session_state:
+    st.session_state.er_data = " "
+gsheet_df = widgets.google_sheet_loader()
+if gsheet_df is not None:
+    st.session_state.er_data = gsheet_df
+with st.expander("Try it out with some Sample Data"):
+    st.write("You can try out the analysis using the sample data at this link:")
+    st.write("https://docs.google.com/spreadsheets/d/1vaynurld-DiuVW97XQlGunyhYqJdOD-CnoxjZveGP1c/edit?usp=sharing")
+
 st.divider()
 
 st.markdown("### 2. View Data")
@@ -73,14 +89,15 @@ if "er_data" in st.session_state:
     y_col = right.multiselect("Response (y-axis)", data_col)
     error_cols = [col for col in data_col if col not in y_col]
     y_err = right.multiselect("Error (y-axis)", error_cols)
-    if (y_col is not None):
+    if (len(y_col) > 0):
         if len(y_err) == len(y_col):
             # Using a longform dataframe to plot scatter 
             # with data that has multiple error columns was adapted from
             # https://community.plotly.com/t/setting-multiple-error-bars-with-new-plotly-express-wide-data-feature/40382/9
-            long_df = data_df.melt(id_vars=x_col, value_vars=y_col, value_name="Response", var_name="y_name")
+            long_df = data_df.melt(id_vars=x_col, value_vars=y_col, value_name="Response(s)", var_name="y_name")
             long_df["y_error"] = data_df[y_err].unstack().values
-            fig = px.scatter(long_df, x=x_col, y="Response", log_x=True, error_y='y_error')
+            fig = px.scatter(long_df, x=x_col, y="Response(s)", log_x=True, error_y='y_error', color="y_name")
+            #fig.add_trace(go.Line(long_df, x=x_col, y="Response(s)", log_x=True, line='dash'))
         else:
         #right.scatter_chart(data_df, x=x_col, y=y_col)
             fig = px.scatter(data_df, x=x_col, y=y_col, log_x=True)
