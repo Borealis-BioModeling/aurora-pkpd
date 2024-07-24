@@ -87,6 +87,13 @@ with right:
     repo_name = st.text_input("Repository name:", placeholder='my-cool-repo')
     repo_path = st.text_input("Path to model file:", placeholder='src/model.py')
     to_load = st.button("Load")
+    with st.expander(":information_source: Sample Model"):
+        st.markdown('''
+                     If you just want to test things out a bit you can load a sample two-compartment model from the Aurora PK/PD GitHub repo:
+                      * Organization: Borealis-BioModeling
+                      * Repository name: aurora-pkpd
+                      * Path: example_model/twocomp_emax.py
+                    ''')
     if to_load:
         if repo_host == 'GitHub 🐙':
             repo_url = f'https://raw.githubusercontent.com/{repo_user}/{repo_name}/main/{repo_path}'
@@ -103,7 +110,7 @@ with right:
 if to_load:
     st.write("Uploaded model:")
     st.code(string_data, line_numbers=True)
-
+    
 st.divider()
 st.markdown("### Or would you like to build a new custom PK/PD model?")
 if st.button("Build new model"):
