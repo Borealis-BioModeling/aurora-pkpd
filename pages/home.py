@@ -20,7 +20,7 @@ center.image(
 
 center.info("version 0.1.0-alpha")
 widgets.divider_blank()
-st.subheader("Aurora PK/PD: Open Web App for Pharmcological Modeling and Analysis")
+st.subheader("Aurora PK/PD: Open Web App for Pharmacological Modeling and Analysis")
 st.markdown(
     """
 Welcome to Aurora PK/PD, an open-source Python web app designed
