@@ -36,7 +36,7 @@ nca_page = st.Page(
 )
 pdfit_page = st.Page(
     "pages/pdanalysis/exposureresponse.py",
-    title="🔜Exposure-Response",
+    title="Exposure-Response",
     icon=":material/elevation:",
 )
 htprolif_page = st.Page(
@@ -74,13 +74,9 @@ st.logo(
     link=None,
     icon_image="assets/aurora-pkpd-logo-2.png",
 )
-st.sidebar.markdown("[Borealis BioModeling](https://github.com/Borealis-BioModeling)")
 st.sidebar.markdown("A Streamlit web app by [@blakeaw](https://github.com/blakeaw)")
 st.sidebar.markdown("[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J4ZUCVU)")
-# st.sidebar.link_button(
-#     ":dollar: Sponsor on Ko-fi",
-#     "https://ko-fi.com/blakeaw/goal?g=0",
-#     help="Click to see my Ko-fi page.",
-# )
+st.sidebar.markdown("[Borealis BioModeling](https://github.com/Borealis-BioModeling)")
+
 # --- RUN NAVIGATION ---
 pg.run()

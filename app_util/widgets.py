@@ -69,6 +69,14 @@ def model_check_notification():
 def compartmental_options():
 
     st.markdown("### Compartmental PK/PD modeling")
+    st.markdown(
+        '''
+        Aurora PK/PD adopts a low-code approach
+        to dynamic compartmental pharmacokinetics
+        and pharmacodynamics (PK/PD) modeling built on the [PySB framework](https://pysb.org/).
+        You can use these features to explore models that encode how drugs 
+        distribute, metabolize, and exert effects across different compartments over time.
+        ''')
     st.markdown("#### First - Upload or Build a Model:")
     left, right = st.columns(2)
     left.page_link(
@@ -83,11 +91,34 @@ def compartmental_options():
 
 def nca_options():
     st.markdown("### Non-compartmental PK analysis (NCA)")
+    st.markdown(
+        '''
+        You can use this feature to perform Non-compartmental PK analysis (NCA)
+        of concentration-time data and extract PK parameters related to drug absorption,
+        distribution, metabolism, and excretion (ADME).
+        ''')
     st.markdown("#### Run NCA:")
     st.page_link(
         "pages/noncompartmental/nca.py", label="NCA", icon=":material/query_stats:"
     )
 
+def pdanalysis_options():
+    st.markdown("### Pharmacodynamic (PD) Analysis")
+    st.markdown(
+        '''
+        You can use these features to analyze pharmacodynamic (PD) response data
+        characterizing a drug’s effects on biological systems, including fitting
+        exposure-response (or dose-response) models and determine parameters related
+        to the efficacy and potency of compounds.
+        ''')
+    st.markdown("#### Exposure-Response and High-throughput Cell Proliferation Data Analysis:")
+    left, right = st.columns(2)
+    left.page_link(
+        "pages/pdanalysis/exposureresponse.py", label="Exposure-Response", icon=":material/elevation:"
+    )
+    right.page_link(
+        "pages/pdanalysis/htproliferation.py", label="HT Cell Proliferation", icon=":material/apps:"
+    )
 
 def google_sheet_loader():
     st.markdown("#### Load Data from Google Sheet")
@@ -109,3 +140,8 @@ def google_sheet_loader():
                 )
                 return None
         return df_sheet
+
+def dev_status_planning(issue_number):
+    st.markdown("Development status: :red[📝 Planning]")
+    st.markdown("👾 [GitHub Issue](https://github.com/Borealis-BioModeling/aurora-pkpd/issues/{}) - give the initial Issue message a 👍 if this a feature you are interested in using.".format(issue_number))
+    st.markdown("💬 Or, start a new [Discussion](https://github.com/Borealis-BioModeling/aurora-pkpd/discussions/new?category=general) and comment on this and other features of interest to you or your team.")
