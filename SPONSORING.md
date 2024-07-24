@@ -8,7 +8,7 @@ You can make a financial contribution through Ko-fi:
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J4ZUCVU)
 
-Any amount is greatly appreciated and goes directly towards developing these open-source projects.
+Any amount is greatly appreciated and goes directly towards developing open-source projects.
 
 ## Sponsorship Benefits
 
