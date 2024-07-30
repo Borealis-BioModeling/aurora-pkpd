@@ -114,7 +114,7 @@ if to_load:
 st.divider()
 st.markdown("### Or would you like to build a new custom PK/PD model?")
 if st.button("Build new model"):
-    st.switch_page("build.py")
+    st.switch_page("pages/compartmental/build.py")
 
 from importlib.metadata import version
 
