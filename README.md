@@ -4,9 +4,9 @@
 
 ### Open Web App for Pharmcological Modeling and Analysis
 
-![Streamlit Badge](https://img.shields.io/badge/streamlit-1.36.0-red)
-![PySB Badge](https://img.shields.io/badge/PySB-1.16.0-blue)
-[![Static Badge](https://img.shields.io/badge/web_app-streamlit_community_cloud-green)](https://aurora-pkpd.streamlit.app/)
+[![Static Badge](https://img.shields.io/badge/streamlit-1.36.0-red?logo=streamlit)](https://streamlit.io/)
+[![Static Badge](https://img.shields.io/badge/Community_Cloud-Web_App-green?logo=streamlit)](https://aurora-pkpd.streamlit.app/)
+[![PySB Badge](https://img.shields.io/badge/PySB-1.16.0-teal)](https://pysb.org/)
 
 
 
