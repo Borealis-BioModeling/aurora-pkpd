@@ -74,6 +74,7 @@ st.logo(
     link=None,
     icon_image="assets/aurora-pkpd-logo-2.png",
 )
+st.sidebar.markdown("[![DOI](https://zenodo.org/badge/823310494.svg)](https://zenodo.org/doi/10.5281/zenodo.13138374)")
 st.sidebar.markdown("A Streamlit web app by [@blakeaw](https://github.com/blakeaw)")
 st.sidebar.markdown("[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J4ZUCVU)")
 st.sidebar.markdown("[Borealis BioModeling](https://github.com/Borealis-BioModeling)")

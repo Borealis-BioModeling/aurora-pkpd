@@ -7,7 +7,7 @@
 [![Static Badge](https://img.shields.io/badge/streamlit-1.36.0-red?logo=streamlit)](https://streamlit.io/)
 [![Static Badge](https://img.shields.io/badge/Community_Cloud-Web_App-green?logo=streamlit)](https://aurora-pkpd.streamlit.app/)
 [![PySB Badge](https://img.shields.io/badge/PySB-1.16.0-teal)](https://pysb.org/)
-
+[![DOI](https://zenodo.org/badge/823310494.svg)](https://zenodo.org/doi/10.5281/zenodo.13138374)
 
 
 **Aurora PK/PD** is an open-source Python web app implemented using 
