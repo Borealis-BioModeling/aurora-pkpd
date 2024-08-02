@@ -85,6 +85,7 @@ with right:
     elif repo_host == 'GitLab 🦊':
         repo_user = st.text_input("Username or Group:", placeholder='janedoe')
     repo_name = st.text_input("Repository name:", placeholder='my-cool-repo')
+    repo_branch = st.text_input("Repository branch:", placeholder='main')
     repo_path = st.text_input("Path to model file:", placeholder='src/model.py')
     to_load = st.button("Load")
     with st.expander(":information_source: Sample Model"):
@@ -96,9 +97,9 @@ with right:
                     ''')
     if to_load:
         if repo_host == 'GitHub 🐙':
-            repo_url = f'https://raw.githubusercontent.com/{repo_user}/{repo_name}/main/{repo_path}'
+            repo_url = f'https://raw.githubusercontent.com/{repo_user}/{repo_name}/{repo_branch}/{repo_path}'
         elif repo_host == 'GitLab 🦊':
-            repo_url = f'https://gitlab.com/{repo_user}/{repo_name}/-/raw/master/{repo_path}?ref_type=heads'
+            repo_url = f'https://gitlab.com/{repo_user}/{repo_name}/-/raw/{repo_branch}/{repo_path}?ref_type=heads'
         page = requests.get(repo_url)
         string_data = page.text
 
