@@ -111,14 +111,14 @@ def pdanalysis_options():
         exposure-response (or dose-response) models and determine parameters related
         to the efficacy and potency of compounds.
         ''')
-    st.markdown("#### Exposure-Response and High-throughput Cell Proliferation Data Analysis:")
+    st.markdown("#### Exposure-Response:")
     left, right = st.columns(2)
     left.page_link(
         "pages/pdanalysis/exposureresponse.py", label="Exposure-Response", icon=":material/elevation:"
     )
-    right.page_link(
-        "pages/pdanalysis/htproliferation.py", label="HT Cell Proliferation", icon=":material/apps:"
-    )
+    # right.page_link(
+    #     "pages/pdanalysis/htproliferation.py", label="HT Cell Proliferation", icon=":material/apps:"
+    # )
 
 def google_sheet_loader():
     st.markdown("#### Load Data from Google Sheet")

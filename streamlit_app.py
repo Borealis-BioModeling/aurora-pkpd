@@ -40,13 +40,20 @@ pdfit_page = st.Page(
     icon=":material/elevation:",
 )
 htprolif_page = st.Page(
-    "pages/pdanalysis/htproliferation.py",
-    title="🔜HT Cell Proliferation",
-    icon=":material/apps:",
+    "pages/external/htproliferation.py",
+    title="Thunor➡️HT Cell Proliferation",
+    icon=":material/bolt:",
+)
+drugsynergy_page = st.Page(
+    "pages/external/drugsynergy.py",
+    title="MuSyC➡️Drug Combo Synergy",
+    icon=":material/music_note:",
 )
 support_info_page = st.Page(
     "pages/support/info.py", title="Info", icon=":material/info:"
 )
+
+
 
 
 # --- NAVIGATION SETUP [WITH SECTIONS]---
@@ -63,8 +70,9 @@ pg = st.navigation(
             analyze_page,
         ],
         "Non-compartmental PK": [nca_page],
-        "PD Analysis": [pdfit_page, htprolif_page],
+        "PD Analysis": [pdfit_page],
         "Support": [support_info_page],
+        "External Tools": [htprolif_page, drugsynergy_page]
     }
 )
 

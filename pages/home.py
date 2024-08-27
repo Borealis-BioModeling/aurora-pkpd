@@ -18,6 +18,7 @@ center.image(
     "assets/aurora-pkpd-logo-2.png"
 )
 
+
 center.info("version 0.1.2-alpha")
 widgets.divider_blank()
 st.subheader("Aurora PK/PD: Open Web App for Pharmacological Modeling and Analysis")
