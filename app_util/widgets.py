@@ -19,18 +19,18 @@ def simulate_fit():
 
 def viz_simulate_fit():
     st.markdown("#### Next you can:")
-    left, center, right = st.columns(3)
+    left, right = st.columns(2)
     left.page_link(
         "pages/compartmental/visualize.py",
         label="Visualize Model",
         icon=":material/hub:",
     )
-    center.page_link(
+    right.page_link(
         "pages/compartmental/simulate.py",
         label="Simulate Model",
         icon=":material/laps:",
     )
-    right.page_link(
+    left.page_link(
         "pages/compartmental/fit.py",
         label="Fit/Train Model",
         icon=":material/model_training:",

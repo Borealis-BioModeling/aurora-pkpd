@@ -19,7 +19,7 @@ center.image(
 )
 
 
-center.info("version 0.1.2-alpha")
+center.info("version 0.2.0-alpha")
 widgets.divider_blank()
 st.subheader("Aurora PK/PD: Open Web App for Pharmacological Modeling and Analysis")
 st.markdown(
@@ -42,16 +42,22 @@ st.page_link(
     "pages/support/info.py", label="Support Info", icon=":material/info:"
 )
 
+widgets.blank_divider_blank()
+st.subheader("What would you like to do?")
+left, center, right = st.columns(3)
 
-widgets.divider_blank()
-widgets.compartmental_options()
-widgets.also_edit()
+with left:
+    with st.expander("Compartmental Modeling", icon=":material/widgets:"):
+        widgets.compartmental_options()
+        widgets.also_edit()
 
-widgets.divider_blank()
-widgets.nca_options()
+with center:
+    with st.expander("Non-compartmental Analysis", icon=":material/query_stats:"):
+        widgets.nca_options()
 
-widgets.divider_blank()
-widgets.pdanalysis_options()
+with right:
+    with st.expander("Pharmacodynamic Analysis", icon=":material/bid_landscape:"):
+        widgets.pdanalysis_options()
 
 from importlib.metadata import version
 
