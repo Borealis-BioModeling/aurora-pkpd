@@ -7,14 +7,14 @@ from app_util import util, widgets
 
 st.title("Visualize Your Model")
 widgets.divider_blank()
-st.write(
-'''
+page_description = '''
 Welcome to the Visualize page! Here, you can explore interactive network
 visualizations of your pharmacokinetic/pharmacodynamic (PK/PD) model
 compartments and species. Use this feature to gain deeper insights, identify key components,
 as well as better understand any complex interactions and relationships within your model.
 '''
-)
+widgets.about_page(page_description)
+
 widgets.divider_blank()
 
 if "model" in st.session_state:

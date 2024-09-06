@@ -31,13 +31,12 @@ st.title("Build Your Model")
 # with col3:
 #     st.image("https://avatars.githubusercontent.com/u/163594810?s=200&v=4", width=100)
 
-st.write(
-    """
+page_description = """
 Welcome to the Build page! Here, you can create a new compartmental
 pharmacokinetic/pharmacodynamic (PK/PD) model using Aurora PK/PD's
 graphical, interactive step-by-step interface.
          """
-)
+widgets.about_page(page_description)
 
 st.write(" ")
 st.markdown("------")
