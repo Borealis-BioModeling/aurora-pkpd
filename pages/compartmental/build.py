@@ -17,6 +17,11 @@ def info(text):
     )
 
 
+def about_step(text):
+    with st.expander("About this step.", icon=":material/info:"):
+        st.success(text)
+
+
 compartment_counts = {"one": 1, "two": 2, "three": 3}
 
 # col1, col2, col3 = st.columns(3)
@@ -52,16 +57,15 @@ st.markdown("------")
 #         st.stop()
 
 st.markdown("### 1. Define Core Units")
-st.success(
+description_step1 = """
+    Set the foundational units for your dynamical PK/PD model,
+    including time, concentration, and volume.
+    This step ensures consistency and accuracy throughout your
+    model-building process. All other model parameters with these
+    unit types will be automatically converted to the chosen settings 
+    during model execution.
     """
-Set the foundational units for your dynamical PK/PD model,
-including time, concentration, and volume.
-This step ensures consistency and accuracy throughout your
-model-building process. All other model parameters with these
-unit types will be automatically converted to the chosen settings 
-during model execution.
-"""
-)
+about_step(description_step1)
 
 left, center, right = st.columns(3)
 with left:
@@ -92,13 +96,13 @@ amount_unit = u.Unit(unit_amount)
 widgets.divider_blank()
 
 st.markdown("### 2. Define the Compartments")
-st.success(
-    """    
+description_step2 = """    
 Specify the number, names, and volumes of
 the compartments to include in your PK/PD model.
 This step defines the compartmental structure of your model.
 """
-)
+about_step(description_step2)
+
 compartments = []
 n_comp = 1
 # num_compartment = st.radio("Number of Compartments:", ["one", "two", "three", "more"])
@@ -139,13 +143,12 @@ st.write(" ")
 st.markdown("------")
 
 st.markdown("### 3. Define the Drug & Dose")
-st.success(
-    """    
+description_step3 = """    
 Define the dosing function (e.g., I.V. Bolus), the drug name,
 the dose size, and the target compartment. This step sets
 the parameters for how the drug is administered within your PK/PD model.
 """
-)
+about_step(description_step3)
 
 dosing = st.radio(
     "Dosing:",
@@ -159,15 +162,19 @@ dosing = st.radio(
     ],
 )
 
-if dosing == 'I.V. Bolus':
-    st.latex(r'\left[\textrm{Drug}\right]_{\textrm{Compartment},\, t=0} = \textrm{Dose} / V_{\textrm{Compartment}}')
-elif dosing == 'I.V. Infusion':
-    #st.latex(r'\frac{\textrm{d}\left[Drug\right]_{\textrm{Compartment}}}{dt} = \frac{\textrm{Dose}}{V_{\textrm{Compartment}}}')
-    st.latex(r'R_{\textrm{infusion}} = \frac{\textrm{Dose}}{V_{\textrm{Compartment}}}')
-elif dosing == 'Oral':
-    #st.latex(r'\frac{\textrm{d}\left[Drug\right]_{\textrm{Compartment}}}{dt} = f \times k_{\textrm{abs}} \times \frac{\textrm{Dose}}{V_{\textrm{Compartment}}}')
-    st.latex(r'R_{\textrm{absorption}} = f \times k_{\textrm{abs}} \times \frac{\textrm{Dose}}{V_{\textrm{Compartment}}}')
-    st.info('$f$ is the bioavailibility and $k_{abs}$ is the absorption rate constant.')
+if dosing == "I.V. Bolus":
+    st.latex(
+        r"\left[\textrm{Drug}\right]_{\textrm{Compartment},\, t=0} = \textrm{Dose} / V_{\textrm{Compartment}}"
+    )
+elif dosing == "I.V. Infusion":
+    # st.latex(r'\frac{\textrm{d}\left[Drug\right]_{\textrm{Compartment}}}{dt} = \frac{\textrm{Dose}}{V_{\textrm{Compartment}}}')
+    st.latex(r"R_{\textrm{infusion}} = \frac{\textrm{Dose}}{V_{\textrm{Compartment}}}")
+elif dosing == "Oral":
+    # st.latex(r'\frac{\textrm{d}\left[Drug\right]_{\textrm{Compartment}}}{dt} = f \times k_{\textrm{abs}} \times \frac{\textrm{Dose}}{V_{\textrm{Compartment}}}')
+    st.latex(
+        r"R_{\textrm{absorption}} = f \times k_{\textrm{abs}} \times \frac{\textrm{Dose}}{V_{\textrm{Compartment}}}"
+    )
+    st.info("$f$ is the bioavailibility and $k_{abs}$ is the absorption rate constant.")
 
 left, center, right = st.columns(3)
 with left:
@@ -231,13 +238,13 @@ st.write(" ")
 st.markdown("------")
 
 st.markdown("### 4. Drug Distribution")
-st.success(
-    """
+description_step4 = """
 Set the distribution of the drug between different
 compartments and define the associated rate constants.
 This step models how the drug moves through the compartments in your PK/PD model.        
 """
-)
+about_step(description_step4)
+
 left, right, *other = st.columns(4)
 left.write(" ")
 left.write("Distribution: ")
@@ -313,12 +320,11 @@ st.write(" ")
 st.markdown("------")
 
 st.markdown("### 5. Drug Elimination")
-st.success(
-    """
+description_step5 = """
 Specify the linear elimination of the drug from the system.
 This step models how the drug is removed from your PK/PD model over time.
 """
-)
+about_step(description_step5)
 
 st.latex(r"R_{el} = k_{el} \left[ \textrm{Drug} \right]_{\textrm{Compartment}}")
 eliminates = []
@@ -333,9 +339,9 @@ for i in range(n_comp):
     if is_on:
         k_el = center.number_input(
             "Elimination Rate constant:",
-            min_value = 1e-8,
+            min_value=1e-8,
             step=1e-8,
-            value = 1e-1,
+            value=1e-1,
             format="%.2e",
             help="1st-order rate constant for the linear elimination process.",
             key="elimination_rate_{}".format(comp_i),
@@ -360,19 +366,20 @@ st.write(" ")
 st.markdown("------")
 
 st.markdown("### 6. Define a Drug PD Model")
-st.success(
-    """
+description_step6 = """
 Specify whether to include a pharmacodynamic (PD) model for the drug, and if so,
 define the PD model and its and parameters. This step models the drug's
 effects on the biological system.
 """
-)
+about_step(description_step6)
 
 pd_model = None
 pd_kwargs = {}
 pd_units = {}
 if st.toggle("PD model"):
-    pd_model = st.radio("Available models:", list(util.PD_MODELS.keys()), horizontal=True)
+    pd_model = st.radio(
+        "Available models:", list(util.PD_MODELS.keys()), horizontal=True
+    )
     st.latex(util.PD_MODEL_EQS[pd_model])
     left, center, right = st.columns(3)
     with left:
@@ -389,13 +396,13 @@ st.write(" ")
 st.markdown("------")
 
 st.markdown("### 7. Define Observables")
-st.success(
-    """
+description_step7 = """
     Specify observables that track the concentration of a
     species within the model, including across different compartments.
     This step helps monitor key variables and outputs in your PK/PD model.
     """
-)
+about_step(description_step7)
+
 st.write(
     "Add an observable quantity for ", drug_name, " concentration in compartment(s):"
 )
@@ -406,7 +413,7 @@ for i in range(n_comp):
     comp_i = compartments[i]["name"]
     # left.write(" ")
     is_on = left.toggle("{}".format(comp_i), key="toggle_observable_{}".format(comp_i))
-    
+
     if is_on:
         observe.append([drug_name, comp_i])
         right.success(f"[{drug_name}]_{comp_i}")
@@ -421,15 +428,14 @@ st.markdown("------")
 # st.write(eliminates)
 # st.write(compartments)
 st.markdown("### 8. Save and Download")
-st.success(
-    """
+description_step8 = """
     Save your completed PK/PD model and download
     it for future use. This final step ensures that your model
     is accessible across the different compartmental modeling pages and 
     that you can return later and continue your analysis by uploading the Downloaded version
     of your model. You can also review the model's source code if you like.
     """
-)
+about_step(description_step8)
 
 if "tmp_dir" not in st.session_state:
     tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-", delete=False)
@@ -486,7 +492,7 @@ model = util.import_model()
 
 
 # st.write(model)
-with st.expander("See model code"):
+with st.expander("See model code", icon=":material/code:"):
     st.code(model_text, line_numbers=True)
 left, right = st.columns(2)
 right.download_button(
