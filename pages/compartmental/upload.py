@@ -9,15 +9,14 @@ from app_util import util, widgets
 st.title("Upload Your Model")
 # st.info("version 0.1.0-alpha")
 st.divider()
-st.write(
-    """
+page_description = """
 Welcome to the Upload page! Here, you can upload your existing
 pharmacokinetic/pharmacodynamic (PK/PD) models in the PySB format.
 Aurora PK/PD supports PySB Python files, including the pysb-pkpd and pysb-units add-ons. 
 Start a new analysis with an existing model or continue a previous session
 with a model constructed using Aurora PK/PD.
 """
-)
+widgets.about_page(page_description)
 
 st.write(" ")
 st.markdown("### Would you like to upload an existing PK/PD model?")

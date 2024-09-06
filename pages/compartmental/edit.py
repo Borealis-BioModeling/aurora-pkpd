@@ -6,15 +6,15 @@ st.title("Edit Your Model")
 
 widgets.divider_blank()
 
-st.write(
-'''
+page_description = '''
 Welcome to the Edit page! Here, you can work
 directly with the underlying model code using
 our embedded code editor. This feature is designed
 for advanced users who need to implement more
 sophisticated and customized pharmacokinetic/pharmacodynamic (PK/PD) models.
 '''
-)
+widgets.about_page(page_description)
+
 widgets.divider_blank()
 
 if "model" in st.session_state:

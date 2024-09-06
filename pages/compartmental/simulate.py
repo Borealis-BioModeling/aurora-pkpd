@@ -12,15 +12,15 @@ if "sim_traj_df" not in st.session_state:
 
 st.title("Simulate Your Model")
 widgets.divider_blank()
-st.write(
-    """
+page_description = """
 Welcome to the Simulate page! Here, you can interactively adjust
 model parameters and simulate your pharmacokinetic/pharmacodynamic (PK/PD)
 model using Aurora PK/PD's intuitive graphical interface, allowing you to explore
 different scenarios and view key outputs in real-time. Use this feature to adjust parameters
 and test hypotheses in order to gain a deeper understanding of your model's behavior.
 """
-)
+widgets.about_page(page_description)
+
 widgets.divider_blank()
 
 if "model" in st.session_state:
