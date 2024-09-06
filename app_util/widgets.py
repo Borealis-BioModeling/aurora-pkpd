@@ -145,3 +145,7 @@ def dev_status_planning(issue_number):
     st.markdown("Development status: :red[📝 Planning]")
     st.markdown("👾 [GitHub Issue](https://github.com/Borealis-BioModeling/aurora-pkpd/issues/{}) - give the initial Issue message a 👍 if this a feature you are interested in using.".format(issue_number))
     st.markdown("💬 Or, start a new [Discussion](https://github.com/Borealis-BioModeling/aurora-pkpd/discussions/new?category=general) and comment on this and other features of interest to you or your team.")
+
+def about_page(text):
+    with st.expander("About this Page.", icon=":material/info:"):
+        st.info(text)
