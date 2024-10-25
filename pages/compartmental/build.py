@@ -27,7 +27,8 @@ compartment_counts = {"one": 1, "two": 2, "three": 3}
 # col1, col2, col3 = st.columns(3)
 # with col2:
 #     st.header("Model Builder")
-st.title("Build Your Model")
+st.title("Build A New Model")
+
 # with col3:
 #     st.image("https://avatars.githubusercontent.com/u/163594810?s=200&v=4", width=100)
 
@@ -54,6 +55,8 @@ st.markdown("------")
 #         st.rerun()
 #     else:
 #         st.stop()
+st.header("Interactive step-by-step construction of compartmental PK/PD model:")
+st.markdown("  ")
 
 st.markdown("### 1. Define Core Units")
 description_step1 = """
@@ -493,14 +496,12 @@ model = util.import_model()
 # st.write(model)
 with st.expander("See model code", icon=":material/code:"):
     st.code(model_text, line_numbers=True)
-left, right = st.columns(2)
-right.download_button(
-    'Download "model.py"',
-    model_text,
-    "model.py",
-    on_click=st.balloons,
+# left, right = st.columns(2)
+st.markdown("#### i) SAVE")
+st.markdown(
+    "**Click** the button below to Save your model for continued use in this session. **NOTE:** Any changes/settings above will be lost if you don't Save before leaving or reloading this page."
 )
-if left.button("Save"):
+if st.button("Save"):
 
     if "model" in st.session_state:
         st.warning(
@@ -521,6 +522,18 @@ if left.button("Save"):
         util.save_model(model)
         util.save_model_str(model_text)
         st.info("Model saved!", icon="💾")
+
+st.markdown("#### ii) DOWNLOAD")
+st.markdown(
+    "**Click** the button below to to download the source code of the model. **NOTE:** This will allow to return later and utilize this model in another session through the __Upload Existing Model__ page."
+)
+st.download_button(
+    'Download "model.py"',
+    model_text,
+    "model.py",
+    on_click=st.balloons,
+)
+
 if "model" in st.session_state:
     widgets.viz_simulate_fit()
     widgets.also_edit()
