@@ -518,10 +518,12 @@ if st.button("Save"):
             util.save_model(model)
             util.save_model_str(model_text)
             st.info("Model saved!", icon="💾")
+            st.toast('Your new model was saved to the session state!', icon="💾")
     else:
         util.save_model(model)
         util.save_model_str(model_text)
         st.info("Model saved!", icon="💾")
+        st.toast('Your new model was saved to the session state!', icon="💾")
 
 st.markdown("#### ii) DOWNLOAD")
 st.markdown(
