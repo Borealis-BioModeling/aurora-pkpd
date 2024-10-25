@@ -4,11 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.2.0] - 2024-09-04
+## [0.3.0] - 2024-10-25
 
 ### Added
 - External Tools section in the files (pages/external) and the nav bar - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/19 
 - Added a drugsynergy page under pages/external and the External Tools section of the navbar. Page links out to the MuSyC web app - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/6
+
+### Changed
+- Updated the text of the intro paragraph of the README to note use for rapid prototyping and exploratory analysis.
+-  - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/4
+- Updated the page title and added a header under it on the compartmental/upload page to try and make the page purpose more obvious.
+
+
+## [0.2.0] - 2024-09-04
+
+### Added
+- New option button to directly load the example model on the Upload page - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/22 
+
 
 ### Changed
 - Moved the HT Cell Proliferation page under the External Tools section and updated the page to linkout to the Thunor web App - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/4

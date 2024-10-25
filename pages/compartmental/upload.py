@@ -6,7 +6,18 @@ import tempfile
 import requests
 from app_util import util, widgets
 
-st.title("Upload Your Model")
+st.title("Upload a Model")
+st.markdown(
+    """
+**Upload An Existing PK/PD Model to:**
+            
+  i) Resume A Previous Session (with a model you previously built and downloaded)
+
+  OR
+
+  ii) Utilize a Pre-Constructed Model (from another user or source such as a public repository)          
+"""
+)
 # st.info("version 0.1.0-alpha")
 st.divider()
 page_description = """
@@ -19,7 +30,7 @@ with a model constructed using Aurora PK/PD.
 widgets.about_page(page_description)
 
 st.write(" ")
-st.markdown("### Would you like to upload an existing PK/PD model?")
+# st.markdown("### Would you like to upload an existing PK/PD model?")
 
 if "tmp_dir" not in st.session_state:
     tmp_dir = tempfile.TemporaryDirectory(prefix="aurorpkpd-", delete=False)
@@ -35,7 +46,7 @@ left, right = st.columns(2)
 left.markdown("### Upload from file:")
 uploaded_model = left.file_uploader(" ", type=["py"])
 
-#col1,col2,col3 = st.columns([2,1,1])
+# col1,col2,col3 = st.columns([2,1,1])
 
 if uploaded_model is not None:
     if "model" in st.session_state:
@@ -77,28 +88,36 @@ if uploaded_model is not None:
         widgets.also_edit()
 with right:
     st.markdown("### OR,  Load from public repository:")
-    repo_host = st.radio("Choose Host", ['GitHub 🐙', 'GitLab 🦊'], horizontal=True)
-    
-    if repo_host == 'GitHub 🐙':
-        repo_user = st.text_input("Username or Organizaton:", placeholder='janedoe')
-    elif repo_host == 'GitLab 🦊':
-        repo_user = st.text_input("Username or Group:", placeholder='janedoe')
-    repo_name = st.text_input("Repository name:", placeholder='my-cool-repo')
-    repo_branch = st.text_input("Repository branch:", placeholder='main')
-    repo_path = st.text_input("Path to model file:", placeholder='src/model.py')
+    repo_host = st.radio("Choose Host", ["GitHub 🐙", "GitLab 🦊"], horizontal=True)
+
+    if repo_host == "GitHub 🐙":
+        repo_user = st.text_input("Username or Organizaton:", placeholder="janedoe")
+    elif repo_host == "GitLab 🦊":
+        repo_user = st.text_input("Username or Group:", placeholder="janedoe")
+    repo_name = st.text_input("Repository name:", placeholder="my-cool-repo")
+    repo_branch = st.text_input("Repository branch:", placeholder="main")
+    repo_path = st.text_input("Path to model file:", placeholder="src/model.py")
     to_load = st.button("Load")
     with st.expander(":information_source: Sample Model"):
-        st.markdown('''
+        st.markdown(
+            """
                      If you just want to test things out a bit you can load a sample two-compartment model from the Aurora PK/PD GitHub repo:
                       * Organization: Borealis-BioModeling
                       * Repository name: aurora-pkpd
                       * Path: example_model/twocomp_emax.py
-                    ''')
+                    """
+        )
+        if st.button("Click to Load The Sample Model"):
+            repo_user = "Borealis-BioModeling"
+            repo_name = "aurora-pkpd"
+            repo_branch = "main"
+            repo_path = "example_model/twocomp_emax.py"
+            to_load = True
     if to_load:
-        if repo_host == 'GitHub 🐙':
-            repo_url = f'https://raw.githubusercontent.com/{repo_user}/{repo_name}/{repo_branch}/{repo_path}'
-        elif repo_host == 'GitLab 🦊':
-            repo_url = f'https://gitlab.com/{repo_user}/{repo_name}/-/raw/{repo_branch}/{repo_path}?ref_type=heads'
+        if repo_host == "GitHub 🐙":
+            repo_url = f"https://raw.githubusercontent.com/{repo_user}/{repo_name}/{repo_branch}/{repo_path}"
+        elif repo_host == "GitLab 🦊":
+            repo_url = f"https://gitlab.com/{repo_user}/{repo_name}/-/raw/{repo_branch}/{repo_path}?ref_type=heads"
         page = requests.get(repo_url)
         string_data = page.text
 
@@ -110,7 +129,7 @@ with right:
 if to_load:
     st.write("Uploaded model:")
     st.code(string_data, line_numbers=True)
-    
+
 st.divider()
 st.markdown("### Or would you like to build a new custom PK/PD model?")
 if st.button("Build new model"):
@@ -120,7 +139,11 @@ from importlib.metadata import version
 
 st.write(" ")
 st.write(" ")
-powered_by = "Models powered by PySB {} with add-ons: pysb-pkpd {} and pysb-units {}".format(
-    version("pysb"), version("pysb.pkpd"), version("pysb.units"),
+powered_by = (
+    "Models powered by PySB {} with add-ons: pysb-pkpd {} and pysb-units {}".format(
+        version("pysb"),
+        version("pysb.pkpd"),
+        version("pysb.units"),
+    )
 )
 st.caption(powered_by)

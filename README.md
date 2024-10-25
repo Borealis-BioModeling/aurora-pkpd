@@ -11,9 +11,9 @@
 
 
 **Aurora PK/PD** is an open-source Python web app implemented using 
-the [streamlit](https://streamlit.io/) framework. Its purpose is to provide a robust and accessible set of pharmacokinetics and pharmacodynamics modeling and analysis tools for academic researchers and small biotech/pharma startups. 
+the [streamlit](https://streamlit.io/) framework, offering users a versatile and accessible pharmacokinetics and pharmacodynamics modeling and analysis platform particularly suited to rapid prototyping and exploratory analysis.
 
-You can access the app at 
+You can access the app running in the Streamlit cloud at 
 
 **[aurora-pkpd.streamlit.app](https://aurora-pkpd.streamlit.app/)**
 
