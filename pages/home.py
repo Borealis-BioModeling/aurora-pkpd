@@ -44,20 +44,20 @@ st.page_link(
 
 widgets.blank_divider_blank()
 st.subheader("What would you like to do?")
-left, center, right = st.columns(3)
+#left, center, right = st.columns(3)
 
-with left:
-    with st.expander("Compartmental Modeling", icon=":material/widgets:"):
-        widgets.compartmental_options()
-        widgets.also_edit()
+#with left:
+with st.expander("Compartmental Modeling", icon=":material/widgets:"):
+    widgets.compartmental_options()
+    widgets.also_edit()
 
-with center:
-    with st.expander("Non-compartmental Analysis", icon=":material/query_stats:"):
-        widgets.nca_options()
+#with center:
+with st.expander("Non-compartmental Analysis", icon=":material/query_stats:"):
+    widgets.nca_options()
 
-with right:
-    with st.expander("Pharmacodynamic Analysis", icon=":material/bid_landscape:"):
-        widgets.pdanalysis_options()
+#with right:
+with st.expander("Pharmacodynamic Analysis", icon=":material/bid_landscape:"):
+    widgets.pdanalysis_options()
 
 from importlib.metadata import version
 
