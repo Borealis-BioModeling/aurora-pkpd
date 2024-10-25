@@ -6,20 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.3.0] - 2024-10-25
 
-### Added
-- External Tools section in the files (pages/external) and the nav bar - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/19 
-- Added a drugsynergy page under pages/external and the External Tools section of the navbar. Page links out to the MuSyC web app - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/6
-
 ### Changed
-- Updated the text of the intro paragraph of the README to note use for rapid prototyping and exploratory analysis.
+- The text of the intro paragraph of the README to note use for rapid prototyping and exploratory analysis.
 -  - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/4
-- Updated the page title and added a header under it on the compartmental/upload page to try and make the page purpose more obvious.
+- The page title and added a header under it on the compartmental/upload page to try and make the page purpose more obvious.
+- Updated the page title of the compartmental/visualize page to to try and make the page purpose more obvious - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/22
+- The page names of Compartmental PK/PD items in the navigation sidebar. Trying to make the app and page purposes easier to understand and follow as part of updates for Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/22
+- Expander text in the `about_page` widget function to 'More About this Page'. 
 
 
 ## [0.2.0] - 2024-09-04
 
 ### Added
-- New option button to directly load the example model on the Upload page - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/22 
+- New option button to directly load the example model on the Upload page - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/21 
 
 
 ### Changed

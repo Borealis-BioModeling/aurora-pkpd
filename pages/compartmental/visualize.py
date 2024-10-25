@@ -5,7 +5,8 @@ from app_util import util, widgets
 # with col2:
     # st.header("Model Explorer")
 
-st.title("Interactive Network Visualizations of Your Model")
+st.title("Visualize The Network of Interactions In Your Model")
+st.header("View interactive network visualizations of model compartments and model species.")
 widgets.divider_blank()
 page_description = '''
 Welcome to the Visualize page! Here, you can explore interactive network

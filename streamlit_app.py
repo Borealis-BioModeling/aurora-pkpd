@@ -13,23 +13,23 @@ st.set_page_config(
 # --- PAGE SETUP ---
 home_page = st.Page("pages/home.py", title="Home", icon=":material/house:")
 upload_page = st.Page(
-    "pages/compartmental/upload.py", title="Upload", icon=":material/upload:"
+    "pages/compartmental/upload.py", title="Upload Existing Model", icon=":material/upload:"
 )
 build_page = st.Page(
-    "pages/compartmental/build.py", title="Build", icon=":material/build:"
+    "pages/compartmental/build.py", title="Build New Model", icon=":material/build:"
 )
-edit_page = st.Page("pages/compartmental/edit.py", title="Edit", icon=":material/code:")
+edit_page = st.Page("pages/compartmental/edit.py", title="Edit Model Code", icon=":material/code:")
 viz_page = st.Page(
-    "pages/compartmental/visualize.py", title="Visualize", icon=":material/hub:"
+    "pages/compartmental/visualize.py", title="Visualize Networks", icon=":material/hub:"
 )
 simulate_page = st.Page(
-    "pages/compartmental/simulate.py", title="Simulate", icon=":material/laps:"
+    "pages/compartmental/simulate.py", title="Simulate and View Outputs", icon=":material/laps:"
 )
 fit_page = st.Page(
-    "pages/compartmental/fit.py", title="🔜Fit/Train", icon=":material/model_training:"
+    "pages/compartmental/fit.py", title="🔜Calibrate Model to Data", icon=":material/model_training:"
 )
 analyze_page = st.Page(
-    "pages/compartmental/analyze.py", title="🔜Analyze", icon=":material/analytics:"
+    "pages/compartmental/analyze.py", title="🔜Analyze Model", icon=":material/analytics:"
 )
 nca_page = st.Page(
     "pages/noncompartmental/nca.py", title="🔜NCA", icon=":material/query_stats:"

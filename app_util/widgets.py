@@ -147,5 +147,5 @@ def dev_status_planning(issue_number):
     st.markdown("💬 Or, start a new [Discussion](https://github.com/Borealis-BioModeling/aurora-pkpd/discussions/new?category=general) and comment on this and other features of interest to you or your team.")
 
 def about_page(text):
-    with st.expander("About this Page.", icon=":material/info:"):
+    with st.expander("More About this Page.", icon=":material/info:"):
         st.info(text)
