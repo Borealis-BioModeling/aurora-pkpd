@@ -5,7 +5,7 @@ from app_util import util, widgets
 # with col2:
     # st.header("Model Explorer")
 
-st.title("Visualize Your Model")
+st.title("Interactive Network Visualizations of Your Model")
 widgets.divider_blank()
 page_description = '''
 Welcome to the Visualize page! Here, you can explore interactive network
@@ -54,6 +54,7 @@ graph_source = graph_html.read()
 
 #with left:
 st.markdown("### 1. Compartment View")
+st.markdown("Highlights the distribution of drug or other species across the different model compartments:")
 components.html(graph_source, height=500, width=700)
 
 st.divider()
@@ -72,6 +73,7 @@ graph_source = graph_html.read()
 
 #with right:
 st.markdown("### 2. Species View")
+st.markdown("Highlights the network of interactions amongst the model species and their different states and locations:")
 components.html(graph_source, height=700, width=700)
 
 widgets.blank_divider_blank()
