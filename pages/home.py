@@ -19,17 +19,17 @@ center.image(
 )
 
 
-center.info("version 0.2.0-alpha")
+center.info("version 0.3.0-alpha")
 widgets.divider_blank()
 st.subheader("Aurora PK/PD: Open Web App for Pharmacological Modeling and Analysis")
 st.markdown(
     """
-Welcome to Aurora PK/PD, an open-source Python web app designed
-to provide robust and accessible pharmacokinetics and pharmacodynamics
-modeling and analysis tools for academic researchers and small biotech/pharma startups.
-I hope Aurora PK/PD can become an essential part of your model-informed drug discovery
-and development toolkit, helping you to accelerate your efforts to derive pharmacological
-insights from your clinical data and ultimately discover new medicines.
+Welcome to Aurora PK/PD! This open-source Python web app aims to provide 
+a versatile and accessible pharmacokinetics
+and pharmacodynamics modeling and analysis platform that is particularly
+suited to rapid prototyping and exploratory analysis. I hope Aurora PK/PD will offer students, academic researchers, and small biotech/pharma startups
+a cost-effective alternative to proprietary PK/PD software, making it easier to learn,
+explore, and accelerate drug discovery. 
 
 While not all planned features are complete, I hope you 
 find the implemented ones useful. Your feedback and support are
