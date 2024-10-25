@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Updated the page title of the compartmental/visualize page to to try and make the page purpose more obvious - Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/22
 - The page names of Compartmental PK/PD items in the navigation sidebar. Trying to make the app and page purposes easier to understand and follow as part of updates for Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/22
 - Expander text in the `about_page` widget function to 'More About this Page'. 
+- The title on the compartmental/build page to try and make it easier to understand the page purpose.
+- The Save and Download section of compartmental/build to try and further clarify these steps as per Issue https://github.com/Borealis-BioModeling/aurora-pkpd/issues/23 
 
 
 ## [0.2.0] - 2024-09-04
