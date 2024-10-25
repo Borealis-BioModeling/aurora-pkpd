@@ -7,12 +7,12 @@ def simulate_fit():
     left, right = st.columns(2)
     left.page_link(
         "pages/compartmental/simulate.py",
-        label="Simulate Model",
+        label="Simulate Model and View Outputs",
         icon=":material/laps:",
     )
     right.page_link(
         "pages/compartmental/fit.py",
-        label="Fit/Train Model",
+        label="Calibrate Model to Data",
         icon=":material/model_training:",
     )
 
@@ -22,17 +22,17 @@ def viz_simulate_fit():
     left, right = st.columns(2)
     left.page_link(
         "pages/compartmental/visualize.py",
-        label="Visualize Model",
+        label="Visualize Networks",
         icon=":material/hub:",
     )
     right.page_link(
         "pages/compartmental/simulate.py",
-        label="Simulate Model",
+        label="Simulate Model and View Outputs",
         icon=":material/laps:",
     )
     left.page_link(
         "pages/compartmental/fit.py",
-        label="Fit/Train Model",
+        label="Calibrate Model to Data",
         icon=":material/model_training:",
     )
 
@@ -80,10 +80,10 @@ def compartmental_options():
     st.markdown("#### First - Upload or Build a Model:")
     left, right = st.columns(2)
     left.page_link(
-        "pages/compartmental/upload.py", label="Upload Model", icon=":material/upload:"
+        "pages/compartmental/upload.py", label="Upload Existing Model", icon=":material/upload:"
     )
     right.page_link(
-        "pages/compartmental/build.py", label="Build Model", icon=":material/build:"
+        "pages/compartmental/build.py", label="Build New Model", icon=":material/build:"
     )
     model_check_notification()
     viz_simulate_fit()
